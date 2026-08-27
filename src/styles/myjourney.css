@@ -1,0 +1,366 @@
+/* ==========================================================
+   MY JOURNEY SECTION — React Bits <OptionWheel /> & <LightRays />
+   4-Year Interactive Career & Achievement Showcase
+   ========================================================== */
+.myjourney-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #000000;
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 90px 24px 70px 24px;
+}
+
+/* WebGL Light Rays Ambient Container */
+.myjourney-rays-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Subtle dark radial vignette over the light rays */
+.myjourney-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.85) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Content Container */
+.myjourney-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ==========================================================
+   SECTION HEADER
+   ========================================================== */
+.myjourney-header {
+    text-align: center;
+    max-width: 680px;
+    margin-bottom: 40px;
+    user-select: none;
+}
+
+.myjourney-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 500;
+    font-style: italic;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 140, 20, 0.35);
+}
+
+.myjourney-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1.25vw, 1rem);
+    font-weight: 300;
+    color: rgba(230, 230, 235, 0.82);
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 540px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================
+   INTERACTIVE SPLIT LAYOUT (Wheel + Showcase Card)
+   ========================================================== */
+.myjourney-interactive-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Left Column: OptionWheel Container */
+.myjourney-wheel-col {
+    position: relative;
+    height: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.option-wheel {
+    --ow-text-color: #666672;
+    --ow-active-color: #ffffff;
+    --ow-font-size: 2.2rem;
+    --ow-inset: 30px;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
+    outline: none;
+}
+
+.option-wheel--dragging {
+    cursor: grabbing;
+}
+
+.option-wheel__item {
+    position: absolute;
+    top: 50%;
+    left: var(--ow-inset);
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+    font-size: var(--ow-font-size);
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    transform-origin: left center;
+    cursor: pointer;
+    will-change: transform, opacity, filter;
+    color: color-mix(in srgb, var(--ow-active-color) calc(var(--ow-p, 0) * 100%), var(--ow-text-color));
+    transition: text-shadow 0.25s ease, font-weight 0.25s ease;
+    padding: 8px 16px;
+    border-radius: 12px;
+}
+
+.option-wheel__item:hover {
+    color: #ffffff;
+}
+
+.option-wheel__item--selected {
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 140, 20, 0.7),
+                 0 0 35px rgba(255, 180, 50, 0.35);
+}
+
+.option-wheel__item--selected::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 24px;
+    border-radius: 4px;
+    background: #ff8c00;
+    box-shadow: 0 0 12px #ff8c00;
+}
+
+/* ==========================================================
+   RIGHT COLUMN: JOURNEY SHOWCASE CARD
+   ========================================================== */
+.myjourney-card-col {
+    position: relative;
+    width: 100%;
+}
+
+.journey-showcase-card {
+    background: linear-gradient(
+        165deg,
+        rgba(22, 22, 28, 0.82) 0%,
+        rgba(13, 13, 17, 0.92) 60%,
+        rgba(8, 8, 11, 0.96) 100%
+    );
+    border: 1px solid rgba(255, 140, 20, 0.25);
+    border-radius: 28px;
+    padding: clamp(28px, 3.5vw, 42px);
+    box-shadow: 0 24px 65px -12px rgba(0, 0, 0, 0.95),
+                0 0 45px -8px rgba(255, 140, 20, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.journey-showcase-card.transitioning {
+    opacity: 0.2;
+    transform: translateY(8px) scale(0.99);
+}
+
+/* Card Header */
+.journey-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.journey-period-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255, 140, 20, 0.12);
+    border: 1px solid rgba(255, 140, 20, 0.35);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffaa40;
+    text-transform: uppercase;
+}
+
+.journey-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff8c00;
+    box-shadow: 0 0 8px #ff8c00;
+}
+
+.journey-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* Main Headline */
+.journey-headline {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    line-height: 1.25;
+    letter-spacing: -0.4px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.journey-summary {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+    font-weight: 300;
+    color: rgba(220, 220, 225, 0.85);
+    line-height: 1.65;
+    margin: 0 0 22px 0;
+}
+
+/* Milestone Items List */
+.journey-milestones {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.journey-milestone-item {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid #ff8c00;
+    border-radius: 14px;
+    padding: 14px 18px;
+    transition: all 0.25s ease;
+}
+
+.journey-milestone-item:hover {
+    background: rgba(255, 140, 20, 0.06);
+    border-color: rgba(255, 140, 20, 0.3);
+    border-left-color: #ffa500;
+    transform: translateX(4px);
+}
+
+.milestone-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ff9920;
+    margin-bottom: 4px;
+}
+
+.milestone-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 4px 0;
+}
+
+.milestone-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: rgba(210, 210, 215, 0.85);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Tags Footer */
+.journey-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.journey-pill {
+    padding: 5px 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(240, 240, 245, 0.85);
+}
+
+/* ==========================================================
+   RESPONSIVE LAYOUT
+   ========================================================== */
+@media (max-width: 900px) {
+    .myjourney-interactive-row {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .myjourney-wheel-col {
+        height: 200px;
+    }
+    .option-wheel {
+        --ow-font-size: 1.8rem;
+        --ow-inset: 15px;
+    }
+    .journey-showcase-card {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .myjourney-section {
+        padding: 60px 16px 40px 16px;
+    }
+    .myjourney-title {
+        font-size: 2.1rem;
+    }
+    .journey-headline {
+        font-size: 1.35rem;
+    }
+}

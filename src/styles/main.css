@@ -1,0 +1,21 @@
+/* ===== Global Reset & Theme Variables ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scrollbar-width: none; /* Firefox */
+    overflow-x: clip;
+}
+html::-webkit-scrollbar {
+    display: none; /* Chrome / Safari / Edge */
+}
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: clip; /* clip does not break position: sticky */
+}

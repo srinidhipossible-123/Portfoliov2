@@ -1,0 +1,450 @@
+/* ==========================================================
+   LET'S CONNECT FOOTER SECTION
+   Interactive Footer with 3D Pixar Handshake Render,
+   Direct Mail, and Sleek Horizontal Logo Buttons
+   ========================================================== */
+.connect-footer-section {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    background: #000000;
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 80px 4vw 0 4vw;
+    border-top: 1px solid rgba(255, 140, 20, 0.2);
+}
+
+/* Atmospheric ambient radial glow behind the handshake */
+.connect-footer-section::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse at bottom center, rgba(240, 85, 20, 0.18) 0%, rgba(255, 140, 20, 0.06) 45%, transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Subtle background stars / grid texture */
+.connect-bg-glow {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==========================================================
+   MAIN FOOTER CONTENT WRAPPER (Split 3-Column Layout)
+   ========================================================== */
+.connect-main-wrap {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 380px;
+}
+
+/* ==========================================================
+   LEFT COLUMN: HEADLINE & EMAIL
+   ========================================================== */
+.connect-left-col {
+    flex: 1;
+    max-width: 420px;
+    z-index: 6;
+}
+
+.connect-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(240, 85, 20, 0.12);
+    border: 1px solid rgba(240, 85, 20, 0.35);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ff9933;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.connect-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f05514;
+    box-shadow: 0 0 8px #f05514;
+}
+
+.connect-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 4.2vw, 3.8rem);
+    font-weight: 500;
+    font-style: italic;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 35px rgba(240, 85, 20, 0.25);
+}
+
+.connect-title .dot {
+    color: #f05514;
+    font-style: normal;
+    text-shadow: 0 0 16px #f05514;
+}
+
+.connect-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+    font-weight: 300;
+    color: rgba(215, 215, 225, 0.85);
+    line-height: 1.65;
+    margin: 0 0 24px 0;
+}
+
+/* Interactive Direct Email Pill */
+.connect-email-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(26, 26, 34, 0.9) 0%, rgba(14, 14, 18, 0.95) 100%);
+    border: 1px solid rgba(240, 85, 20, 0.4);
+    border-radius: 16px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.8),
+                0 0 20px -3px rgba(240, 85, 20, 0.2);
+    backdrop-filter: blur(14px);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.connect-email-pill:hover {
+    border-color: #f05514;
+    background: linear-gradient(135deg, rgba(35, 30, 42, 0.95) 0%, rgba(20, 16, 26, 0.98) 100%);
+    box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.9),
+                0 0 30px rgba(240, 85, 20, 0.4);
+    transform: translateY(-3px);
+}
+
+.email-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(240, 85, 20, 0.15);
+    border: 1px solid rgba(240, 85, 20, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff9933;
+    flex-shrink: 0;
+}
+
+.email-icon-box svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.email-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.email-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.email-address {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+}
+
+.email-arrow {
+    width: 20px;
+    height: 20px;
+    color: #f05514;
+    transition: transform 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.connect-email-pill:hover .email-arrow {
+    transform: translateX(4px);
+}
+
+/* ==========================================================
+   MIDDLE: 3D PIXAR HANDSHAKE IMAGE ATTACHED TO BOTTOM BORDER
+   ========================================================== */
+.connect-handshake-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: clamp(260px, 34vw, 420px);
+    z-index: 4;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.connect-handshake-img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9))
+            drop-shadow(0 0 45px rgba(240, 85, 20, 0.25));
+    transition: transform 0.4s ease;
+}
+
+/* ==========================================================
+   RIGHT COLUMN: SLEEK HORIZONTAL LOGO BUTTONS
+   ========================================================== */
+.connect-right-col {
+    flex: 1;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 6;
+}
+
+.connect-social-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+}
+
+.connect-social-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+}
+
+.social-icon-btn {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(24, 22, 30, 0.85) 0%, rgba(14, 12, 18, 0.95) 100%);
+    border: 1px solid rgba(240, 85, 20, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e5e5ea;
+    text-decoration: none;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.8),
+                0 0 14px -2px rgba(240, 85, 20, 0.15);
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.social-icon-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.25s ease, fill 0.25s ease;
+}
+
+.social-icon-btn:hover {
+    border-color: #f05514;
+    background: linear-gradient(135deg, rgba(38, 30, 48, 0.95) 0%, rgba(22, 16, 28, 1) 100%);
+    color: #ff9933;
+    box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.9),
+                0 0 24px rgba(240, 85, 20, 0.45);
+    transform: translateY(-3px);
+}
+
+.social-icon-btn:hover svg {
+    transform: scale(1.12);
+    fill: #ffaa40;
+}
+
+/* Stylish Tagline underneath social icons */
+.connect-tagline-stylish {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.98rem, 1.22vw, 1.18rem);
+    font-weight: 400;
+    line-height: 1.45;
+    color: rgba(230, 230, 240, 0.88);
+    margin-top: 18px;
+    text-align: right;
+    letter-spacing: 0.2px;
+    max-width: 290px;
+}
+
+.connect-tagline-stylish .stylish-accent {
+    background: linear-gradient(135deg, #ffaa40 0%, #f05514 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+}
+
+.connect-tagline-stylish .stylish-spark {
+    color: #f05514;
+    font-style: normal;
+    font-size: 0.85em;
+    margin-left: 6px;
+    display: inline-block;
+    filter: drop-shadow(0 0 8px #f05514);
+    animation: pulseSpark 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseSpark {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.25); opacity: 1; filter: drop-shadow(0 0 14px #ff9933); }
+}
+
+/* ==========================================================
+   BOTTOM BORDER END & COPYRIGHT ROW
+   ========================================================== */
+.connect-bottom-bar {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    margin-top: 50px;
+    padding: 22px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.connect-copyright {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.connect-author-tag {
+    color: #ff9933;
+    font-weight: 600;
+}
+
+.back-to-top-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.back-to-top-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.back-to-top-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    transition: transform 0.2s ease;
+}
+
+.back-to-top-btn:hover svg {
+    transform: translateY(-2px);
+}
+
+/* ==========================================================
+   RESPONSIVE LAYOUT
+   ========================================================== */
+@media (max-width: 1100px) {
+    .connect-main-wrap {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 36px;
+    }
+    .connect-left-col {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .connect-desc {
+        max-width: 520px;
+    }
+    .connect-handshake-wrap {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        height: 280px;
+        order: 2;
+        margin: 10px 0;
+    }
+    .connect-right-col {
+        align-items: center;
+        order: 3;
+        width: 100%;
+    }
+    .connect-social-horizontal {
+        justify-content: center;
+    }
+    .connect-tagline-stylish {
+        text-align: center;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .connect-footer-section {
+        padding: 50px 20px 0 20px;
+    }
+    .connect-title {
+        font-size: 2.3rem;
+    }
+    .connect-handshake-wrap {
+        height: 220px;
+    }
+    .connect-bottom-bar {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,421 @@
+/* ==========================================================
+   ABOUT SECTION — React Bits <LaserFlow /> Integration
+   Matching Reference: High-Intensity Vertical Laser Spire
+   Shooting from the Top Border of the Framed Card
+   ========================================================== */
+.about-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    background: #08080a;
+    z-index: 10;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Three.js LaserFlow WebGL Canvas Container */
+.about-laser-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* ==========================================================
+   UPPER HEADER (Floating in the open laser sky)
+   ========================================================== */
+.about-header {
+    position: absolute;
+    bottom: calc(50% + 14px);
+    left: calc(50% - min(46%, 590px));
+    z-index: 10;
+    user-select: none;
+    max-width: 580px;
+}
+
+.about-header h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.05;
+    margin: 0;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 140, 20, 0.35);
+}
+
+.about-header h1 .dot {
+    color: #f05514;
+    text-shadow: 0 0 16px #f05514;
+}
+
+.about-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1.15vw, 1.02rem);
+    color: rgba(220, 220, 225, 0.85);
+    font-weight: 300;
+    margin-top: 0.4rem;
+    line-height: 1.45;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.about-subtitle .highlight {
+    color: #f97316;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+}
+
+/* ==========================================================
+   LOWER FRAMED CARD (Top border meets the laser flare at 50%)
+   ========================================================== */
+.about-laser-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92%, 1180px);
+    height: calc(50% - 24px);
+    z-index: 6;
+    background-color: rgba(13, 11, 19, 0.88);
+    background-image: radial-gradient(rgba(240, 85, 20, 0.2) 1.2px, transparent 1.2px);
+    background-size: 22px 22px;
+    border: 2px solid rgba(240, 85, 20, 0.85);
+    border-radius: 24px;
+    box-shadow: 0 0 35px rgba(240, 85, 20, 0.35),
+                inset 0 0 20px rgba(240, 85, 20, 0.1),
+                0 25px 70px rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(16px, 2.4vh, 26px) clamp(22px, 3.5vw, 44px) clamp(14px, 2vh, 22px);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-laser-box:hover {
+    border-color: rgba(249, 115, 22, 0.95);
+    box-shadow: 0 0 45px rgba(240, 85, 20, 0.5),
+                inset 0 0 25px rgba(240, 85, 20, 0.18),
+                0 30px 80px rgba(0, 0, 0, 0.98);
+}
+
+/* ==========================================================
+   MAIN CONTENT ROW INSIDE CARD
+   ========================================================== */
+.about-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+/* Glass card (Left side) */
+.about-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: clamp(0.85rem, 1.4vw, 1.4rem);
+    width: clamp(260px, 25vw, 330px);
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.about-card h3 {
+    font-size: clamp(0.78rem, 0.9vw, 0.9rem);
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+}
+
+.about-card .divider {
+    width: 28px;
+    height: 2px;
+    background: #f05514;
+    box-shadow: 0 0 8px #f05514;
+    margin: 0.5rem 0 0.65rem;
+}
+
+.about-card p {
+    font-size: clamp(0.7rem, 0.82vw, 0.78rem);
+    color: #b0b0b8;
+    line-height: 1.5;
+    font-weight: 300;
+    margin-bottom: 0.45rem;
+}
+
+.about-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================
+   ROTATING CIRCULAR BADGE
+   ========================================================== */
+.rotating-badge-container {
+    position: absolute;
+    top: 50%;
+    left: 56%;
+    transform: translate(-50%, -50%);
+    width: clamp(80px, 9.5vw, 130px);
+    height: clamp(80px, 9.5vw, 130px);
+    z-index: 5;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.rotating-badge-svg {
+    width: 100%;
+    height: 100%;
+    animation: spinBadge 12s linear infinite;
+    filter: drop-shadow(0 0 12px rgba(240, 85, 20, 0.6));
+    transform-origin: center center;
+}
+
+.rotating-badge-svg text {
+    fill: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 13.5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+@keyframes spinBadge {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================
+   SOCIAL SIDEBAR WITH GOLDEN ELECTRIC WIRE
+   ========================================================== */
+.social-sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+    padding: 10px 0 14px;
+}
+
+.electric-wire-track {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1.5px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(210, 140, 50, 0.4) 6%,
+        rgba(240, 165, 60, 0.75) 45%,
+        rgba(240, 165, 60, 0.75) 55%,
+        rgba(210, 140, 50, 0.4) 94%,
+        transparent 100%
+    );
+    box-shadow: 0 0 8px rgba(235, 145, 45, 0.35);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.wire-node {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffcc55;
+    box-shadow: 0 0 6px #ffaa22, 0 0 12px #ff7700;
+    z-index: 2;
+}
+
+.wire-node.top {
+    top: 0;
+}
+
+.wire-node.bottom {
+    bottom: 0;
+}
+
+.connect-label {
+    position: relative;
+    z-index: 3;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.58rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d4a366;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    background: rgba(10, 10, 10, 0.75);
+    padding: 5px 2px;
+    border-radius: 4px;
+    text-shadow: 0 0 8px rgba(212, 163, 102, 0.5);
+}
+
+.social-link {
+    position: relative;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid rgba(210, 140, 50, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+    background: #0d0d0e;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
+    pointer-events: auto;
+    box-shadow: 0 0 10px rgba(210, 140, 50, 0.2), inset 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.social-link:hover {
+    background: rgba(210, 140, 50, 0.2);
+    border-color: #ffaa33;
+    transform: scale(1.1);
+    box-shadow: 0 0 18px rgba(255, 170, 50, 0.6),
+                0 0 32px rgba(255, 120, 20, 0.35),
+                inset 0 0 12px rgba(255, 170, 50, 0.2);
+    color: #fff;
+}
+
+.social-link svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* ==========================================================
+   DOWNLOAD RESUME BUTTON (Card Bottom)
+   ========================================================== */
+.about-footer {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background 0.3s, border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    pointer-events: auto;
+}
+
+.download-btn:hover {
+    background: rgba(240, 85, 20, 0.15);
+    border-color: #f05514;
+    box-shadow: 0 0 20px rgba(240, 85, 20, 0.4);
+    transform: translateY(-2px);
+}
+
+.download-btn .icon-dl svg {
+    width: 14px;
+    height: 14px;
+    fill: #fff;
+}
+
+.pdf-badge {
+    background: #f05514;
+    color: #fff;
+    padding: 0.12rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 0 8px rgba(240, 85, 20, 0.6);
+}
+
+/* ==========================================================
+   RESPONSIVE LAYOUT
+   ========================================================== */
+@media (max-width: 820px) {
+    .about-section {
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 40px 16px;
+    }
+    .about-header {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 24px;
+        text-align: center;
+        max-width: 100%;
+    }
+    .about-laser-box {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        height: auto;
+        padding: 24px 18px;
+    }
+    .about-body {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .about-card {
+        width: 100%;
+    }
+    .rotating-badge-container {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 10px auto;
+    }
+    .social-sidebar {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        padding: 8px 0;
+    }
+    .electric-wire-track {
+        display: none;
+    }
+    .connect-label {
+        writing-mode: horizontal-tb;
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+}

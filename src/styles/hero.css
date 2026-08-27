@@ -1,0 +1,208 @@
+/* ===== Hero Scroll Section ===== */
+.hero-scroll-container {
+    position: relative;
+    height: 700vh;
+    width: 100%;
+}
+
+.hero-sticky-frame {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ===== Canvas (frame animation) ===== */
+canvas#animation-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* ===== Overlay (all text sections live here) ===== */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ---------- 1. Decode The Problem — top-right ---------- */
+.decode {
+    position: absolute;
+    top: 6%;
+    right: 5%;
+    text-align: right;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.9s cubic-bezier(.25, .46, .45, .94),
+                transform 0.9s cubic-bezier(.25, .46, .45, .94);
+}
+.decode.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.decode-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+    color: #e8dcd0;
+    letter-spacing: 1.5px;
+}
+.decode-line {
+    width: 55px;
+    height: 1.5px;
+    background: linear-gradient(to right, transparent, #c4a882);
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+/* ---------- 2. Sanskrit shloka — top-left ---------- */
+.sanskrit {
+    position: absolute;
+    top: 5%;
+    left: 4%;
+    max-width: 50%;
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.9s cubic-bezier(.25, .46, .45, .94),
+                transform 0.9s cubic-bezier(.25, .46, .45, .94);
+}
+.sanskrit.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.sanskrit p {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: clamp(0.75rem, 1.5vw, 1.15rem);
+    color: #c4a882;
+    line-height: 2;
+    font-weight: 300;
+}
+
+/* ---------- 3. SRINIDHI — split left / right of person ---------- */
+.name-half {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 9vw, 8.5rem);
+    font-weight: 200;
+    letter-spacing: clamp(0.5rem, 3.2vw, 3.2rem);
+    color: rgba(255, 220, 180, 0);
+    white-space: nowrap;
+    text-transform: uppercase;
+    user-select: none;
+    transition: color 1.4s ease,
+                text-shadow 1.4s ease;
+    text-shadow: none;
+}
+.name-left {
+    right: 50%;
+    padding-right: 6vw;
+    text-align: right;
+}
+.name-right {
+    left: 50%;
+    padding-left: 9vw;
+}
+.name-half.visible {
+    color: rgba(255, 215, 170, 0.88);
+    text-shadow:
+        0 0 10px rgba(255, 180, 100, 0.6),
+        0 0 30px rgba(255, 150, 70, 0.45),
+        0 0 60px rgba(255, 130, 50, 0.3),
+        0 0 100px rgba(255, 100, 30, 0.18),
+        0 0 150px rgba(255, 80, 20, 0.08);
+}
+
+/* ---------- 4. Joshi — calligraphy text ---------- */
+.joshi-text {
+    position: absolute;
+    right: 4%;
+    bottom: 28%;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    color: #efe0d0;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1s cubic-bezier(.25, .46, .45, .94),
+                transform 1s cubic-bezier(.25, .46, .45, .94);
+}
+.joshi-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- 5. Info — bottom-left ---------- */
+.info {
+    position: absolute;
+    bottom: 5%;
+    left: 4%;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.9s cubic-bezier(.25, .46, .45, .94),
+                transform 0.9s cubic-bezier(.25, .46, .45, .94);
+}
+.info.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.info h2 {
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.info p {
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    color: #a8a8a8;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* ---------- 6. Quote — bottom-right ---------- */
+.quote {
+    position: absolute;
+    bottom: 5%;
+    right: 4%;
+    max-width: 260px;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.9s cubic-bezier(.25, .46, .45, .94),
+                transform 0.9s cubic-bezier(.25, .46, .45, .94);
+}
+.quote.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.quote-mark {
+    font-size: 2.5rem;
+    color: #c4a882;
+    font-family: Georgia, serif;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+.quote-label {
+    font-size: 0.85rem;
+    color: #c4a882;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+.quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.78rem, 1vw, 0.92rem);
+    color: #e8dcd0;
+    line-height: 1.7;
+    border-left: 2px solid #c4a882;
+    padding-left: 14px;
+}

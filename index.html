@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinidhi Joshi — Portfolio</title>
+    <meta name="description" content="Srinidhi Joshi — AI Intern at Altimetrik, Student at GMU. Decode The Problem.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=Noto+Sans+Devanagari:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <link rel="stylesheet" href="/src/styles/hero.css">
+    <link rel="stylesheet" href="/src/styles/about.css">
+    <link rel="stylesheet" href="/src/styles/skills.css">
+    <link rel="stylesheet" href="/src/styles/myworks.css">
+    <link rel="stylesheet" href="/src/styles/domeGallery.css">
+    <link rel="stylesheet" href="/src/styles/myjourney.css">
+    <link rel="stylesheet" href="/src/styles/footer.css">
+
+    <!-- Critical instant dark theme to prevent FOUC / white flash on refresh -->
+    <style>
+        html, body {
+            background: #000 !important;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: clip;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================
+         HERO SECTION (Scroll Animated)
+         ============================================================ -->
+    <div class="hero-scroll-container" id="heroContainer">
+        <div class="hero-sticky-frame">
+
+            <!-- Frame animation canvas -->
+            <canvas id="animation-canvas"></canvas>
+
+            <!-- All overlay sections -->
+            <div class="overlay">
+
+                <!-- 1. Decode The Problem -->
+                <div class="decode" id="decode">
+                    <span class="decode-text">Decode The Problem</span>
+                    <div class="decode-line"></div>
+                </div>
+
+                <!-- 2. Sanskrit shloka -->
+                <div class="sanskrit" id="sanskrit">
+                    <p>हतो वा प्राप्स्यसि स्वर्गं जित्वा वा भोक्ष्यसे महीम् ।<br>
+                    तस्मादुत्तिष्ठ कौन्तेय युद्धाय कृतनिश्चयः ॥</p>
+                </div>
+
+                <!-- 3. SRINIDHI — split around person -->
+                <div class="name-half name-left" id="nameLeft">SRIN</div>
+                <div class="name-half name-right" id="nameRight">IDHI</div>
+
+                <!-- 4. Joshi — calligraphy font text -->
+                <div class="joshi-text" id="joshiText">Joshi</div>
+
+                <!-- 5. Info section -->
+                <div class="info" id="info">
+                    <h2>Srinidhi Joshi</h2>
+                    <p>AI intern@Altimetrik<br>
+                    Student@GMU<br>
+                    srinidhisjoshi78@gmail.com</p>
+                </div>
+
+                <!-- 6. Quote -->
+                <div class="quote" id="quote">
+                    <div class="quote-mark">&#10077;</div>
+                    <div class="quote-label">Quote..</div>
+                    <div class="quote-text">Build a team so strong<br>that no one knows<br>who's the leader.</div>
+                </div>
+
+            </div><!-- /.overlay -->
+
+        </div><!-- /.hero-sticky-frame -->
+    </div><!-- /.hero-scroll-container -->
+
+    <!-- ============================================================
+         ABOUT SECTION (<LaserFlow />)
+         ============================================================ -->
+    <section class="about-section" id="aboutSection">
+        <div class="about-laser-bg" id="aboutLaserFlow"></div>
+
+        <!-- Upper Header in the laser flow atmosphere -->
+        <div class="about-header">
+            <h1>About<span class="dot">.</span></h1>
+            <p class="about-subtitle">A Developer who is <span class="highlight">obsessed</span> over the logic.</p>
+        </div>
+
+        <!-- Central LaserFlow Framed Container -->
+        <div class="about-laser-box">
+            <!-- Body: card + rotating badge + social -->
+            <div class="about-body">
+
+                <!-- Glass card -->
+                <div class="about-card">
+                    <h3>Decode Problems</h3>
+                    <div class="divider"></div>
+                    <p>I enjoy turning complex problems into clean, efficient and scalable solutions.</p>
+                    <p>Currently exploring system design, AI and backend technologies.</p>
+                    <p>Building projects that solve real world problems and make impact.</p>
+                    <p>Always learning. Always shipping.</p>
+                </div>
+
+                <!-- Rotating Circular Badge -->
+                <div class="rotating-badge-container">
+                    <svg viewBox="0 0 200 200" class="rotating-badge-svg">
+                        <defs>
+                            <path id="circleTextPath" d="M 100, 100 m -68, 0 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0" />
+                        </defs>
+                        <text>
+                            <textPath href="#circleTextPath" startOffset="0%" textLength="427" lengthAdjust="spacing">
+                                REACT ✶ BITS ✶ COMPONENTS ✶
+                            </textPath>
+                        </text>
+                    </svg>
+                </div>
+
+                <!-- Social sidebar with electric wire -->
+                <div class="social-sidebar">
+                    <div class="electric-wire-track">
+                        <div class="wire-node top"></div>
+                        <div class="wire-node bottom"></div>
+                    </div>
+                    <span class="connect-label">Connect</span>
+
+                    <!-- LinkedIn -->
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.6c0-3.37-4-3.12-4 0v5.6h-3v-10h3v1.77c1.4-2.59 7-2.78 7 2.48v5.75z"/></svg>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="#" class="social-link" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.63 0-12 5.37-12 12 0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58 4.76-1.59 8.2-6.09 8.2-11.39 0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.44.41.61.24 1.05.52 1.51.98s.74.9.98 1.51c.17.47.36 1.27.41 2.44.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.41 2.44a4.08 4.08 0 0 1-.98 1.51 4.08 4.08 0 0 1-1.51.98c-.47.17-1.27.36-2.44.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.44-.41a4.08 4.08 0 0 1-1.51-.98 4.08 4.08 0 0 1-.98-1.51c-.17-.47-.36-1.27-.41-2.44-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.24-1.97.41-2.44a4.08 4.08 0 0 1 .98-1.51 4.08 4.08 0 0 1 1.51-.98c.47-.17 1.27-.36 2.44-.41 1.27-.06 1.65-.07 4.85-.07zm0-2.16c-3.26 0-3.67.01-4.95.07-1.28.06-2.15.26-2.91.55a5.88 5.88 0 0 0-2.13 1.39 5.88 5.88 0 0 0-1.39 2.13c-.29.76-.49 1.64-.55 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.55 2.91a5.88 5.88 0 0 0 1.39 2.13 5.88 5.88 0 0 0 2.13 1.39c.76.29 1.64.49 2.91.55 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.55a5.88 5.88 0 0 0 2.13-1.39 5.88 5.88 0 0 0 1.39-2.13c.29-.76.49-1.64.55-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.55-2.91a5.88 5.88 0 0 0-1.39-2.13c-.29-.76-.49-1.64-.55-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.55-2.91a5.88 5.88 0 0 0-1.39-2.13 5.88 5.88 0 0 0-2.13-1.39c-.76-.29-1.64-.49-2.91-.55C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="mailto:srinidhisjoshi78@gmail.com" class="social-link" aria-label="Email">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                </div>
+
+            </div><!-- /.about-body -->
+
+            <!-- Download button -->
+            <div class="about-footer">
+                <a href="#" class="download-btn">
+                    <span class="icon-dl">
+                        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    </span>
+                    Download Resume
+                    <span class="pdf-badge">PDF</span>
+                </a>
+            </div>
+        </div><!-- /.about-laser-box -->
+
+    </section>
+
+    <!-- ============================================================
+         SKILLS SECTION
+         ============================================================ -->
+    <section class="skills-section" id="skillsSection"></section>
+
+    <!-- ============================================================
+         MY WORKS SECTION
+         ============================================================ -->
+    <section class="myworks-section" id="myWorksSection">
+        <div class="myworks-header">
+            <h2 class="myworks-title">My Works</h2>
+            <p class="myworks-tagline">Witness the harmony of artificial intelligence and engineering craft through selected systems that evoke wonder and push boundaries.</p>
+        </div>
+        <div class="myworks-carousel-container" id="myWorksCarousel"></div>
+    </section>
+
+    <!-- ============================================================
+         BEYOND THE CODE SECTION (<DomeGallery />)
+         ============================================================ -->
+    <section class="beyond-code-section" id="beyondCodeSection">
+        <div class="beyond-code-header">
+            <h2 class="beyond-code-title">Beyond the code.</h2>
+            <p class="beyond-code-tagline">A collection of moments, events, people, and experiences that shaped my journey as a developer.</p>
+        </div>
+        <div class="beyond-code-stage-wrap" id="beyondCodeDomeStage"></div>
+    </section>
+
+    <!-- ============================================================
+         MY JOURNEY SECTION (<OptionWheel /> + <LightRays />)
+         ============================================================ -->
+    <section class="myjourney-section" id="myJourneySection">
+        <div class="myjourney-rays-bg" id="myJourneyRays"></div>
+        <div class="myjourney-container">
+            <div class="myjourney-header">
+                <h2 class="myjourney-title">My Journey.</h2>
+                <p class="myjourney-tagline">Milestones, competitive breakthroughs, and engineering triumphs across 4 formative years.</p>
+            </div>
+            <div class="myjourney-interactive-row">
+                <div class="myjourney-wheel-col" id="myJourneyWheel"></div>
+                <div class="myjourney-card-col">
+                    <div class="journey-showcase-card" id="myJourneyCard"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LET'S CONNECT FOOTER SECTION
+         ============================================================ -->
+    <footer class="connect-footer-section" id="connectFooter">
+        <div class="connect-bg-glow"></div>
+
+        <div class="connect-main-wrap">
+            <!-- Left Side: Headline & Direct Email -->
+            <div class="connect-left-col">
+                <div class="connect-badge">
+                    <span class="connect-badge-dot"></span>
+                    Get in touch
+                </div>
+                <h2 class="connect-title">Let's Connect<span class="dot">.</span></h2>
+                <p class="connect-desc">
+                    Have an ambitious idea, research collaboration, or project in mind? My inbox is always open — let's build something exceptional together.
+                </p>
+                <a href="mailto:srinidhisjoshi78@gmail.com" class="connect-email-pill" id="footerEmailBtn" aria-label="Send email to Srinidhi">
+                    <div class="email-icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div class="email-text-group">
+                        <span class="email-label">Direct Mail</span>
+                        <span class="email-address">srinidhisjoshi78@gmail.com</span>
+                    </div>
+                    <div class="email-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Middle: 3D Handshake Attached to Bottom Border -->
+            <div class="connect-handshake-wrap">
+                <img src="/let's connect.png" alt="Srinidhi S Joshi - Let's Connect Handshake" class="connect-handshake-img" loading="lazy" />
+            </div>
+
+            <!-- Right Side: Platform Social Buttons -->
+            <div class="connect-right-col">
+                <span class="connect-social-title">Connect &amp; Follow</span>
+                <div class="connect-social-horizontal">
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/srinidhi-s-joshi" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.6c0-3.37-4-3.12-4 0v5.6h-3v-10h3v1.77c1.4-2.59 7-2.78 7 2.48v5.75z"/></svg>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/srinidhipossible-123" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub" title="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.63 0-12 5.37-12 12 0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58 4.76-1.59 8.2-6.09 8.2-11.39 0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.44.41.61.24 1.05.52 1.51.98s.74.9.98 1.51c.17.47.36 1.27.41 2.44.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.41 2.44a4.08 4.08 0 0 1-.98 1.51 4.08 4.08 0 0 1-1.51.98c-.47.17-1.27.36-2.44.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.44-.41a4.08 4.08 0 0 1-1.51-.98 4.08 4.08 0 0 1-.98-1.51c-.17-.47-.36-1.27-.41-2.44-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.24-1.97.41-2.44a4.08 4.08 0 0 1 .98-1.51 4.08 4.08 0 0 1 1.51-.98c.47-.17 1.27-.36 2.44-.41 1.27-.06 1.65-.07 4.85-.07zm0-2.16c-3.26 0-3.67.01-4.95.07-1.28.06-2.15.26-2.91.55a5.88 5.88 0 0 0-2.13 1.39 5.88 5.88 0 0 0-1.39 2.13c-.29.76-.49 1.64-.55 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.55 2.91a5.88 5.88 0 0 0 1.39 2.13 5.88 5.88 0 0 0 2.13 1.39c.76.29 1.64.49 2.91.55 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.55a5.88 5.88 0 0 0 2.13-1.39 5.88 5.88 0 0 0 1.39-2.13c.29-.76.49-1.64.55-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.55-2.91a5.88 5.88 0 0 0-1.39-2.13c-.29-.76-.49-1.64-.55-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.55-2.91A5.88 5.88 0 0 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                    </a>
+
+                    <!-- Direct Mail -->
+                    <a href="mailto:srinidhisjoshi78@gmail.com" class="social-icon-btn" aria-label="Direct Mail" title="Direct Mail">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                </div>
+
+                <!-- Stylish Tagline -->
+                <p class="connect-tagline-stylish">
+                    Excited to connect &amp; <span class="stylish-accent">make exciting products</span><span class="stylish-spark">✦</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Bottom Border End & Copyright Row -->
+        <div class="connect-bottom-bar">
+            <div class="connect-copyright">
+                <span>&copy; 2026</span>
+                <span class="connect-author-tag">Srinidhi S Joshi</span>
+                <span>&bull; Crafted with logic, passion &amp; precision.</span>
+            </div>
+            <button class="back-to-top-btn" id="backToTopBtn" aria-label="Back to top">
+                Back to Top
+                <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Modular Script Entry Point -->
+    <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>
