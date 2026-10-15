@@ -121,12 +121,12 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
   float maxDistance = iResolution.x * rayLength;
   float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
   
-  float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
+  float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.0, 1.0);
   float pulse = pulsating > 0.5 ? (0.85 + 0.15 * sin(iTime * speed * 2.5)) : 1.0;
 
   float baseStrength = clamp(
-    (0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) +
-    (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)),
+    (0.40 + 0.25 * sin(distortedAngle * seedA + iTime * speed)) +
+    (0.25 + 0.25 * cos(-distortedAngle * seedB + iTime * speed)) - 0.1,
     0.0, 1.0
   );
 
@@ -135,7 +135,7 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   vec2 coord = vec2(fragCoord.x, iResolution.y - fragCoord.y);
-  
+
   vec2 finalRayDir = rayDir;
   if (mouseInfluence > 0.0) {
     vec2 mouseScreenPos = mousePos * iResolution.xy;
@@ -143,31 +143,19 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence));
   }
 
-  vec4 rays1 = vec4(1.0) *
-               rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349,
-                           1.5 * raysSpeed);
-  vec4 rays2 = vec4(1.0) *
-               rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234,
-                           1.1 * raysSpeed);
+  float r1 = rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed);
+  float r2 = rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed);
 
-  fragColor = rays1 * 0.55 + rays2 * 0.45;
+  float intensity = r1 * 0.55 + r2 * 0.45;
 
   if (noiseAmount > 0.0) {
     float n = noise(coord * 0.01 + iTime * 0.1);
-    fragColor.rgb *= (1.0 - noiseAmount + noiseAmount * n);
+    intensity *= (1.0 - noiseAmount + noiseAmount * n);
   }
 
-  float brightness = 1.0 - (coord.y / iResolution.y);
-  fragColor.x *= 0.15 + brightness * 0.85;
-  fragColor.y *= 0.35 + brightness * 0.65;
-  fragColor.z *= 0.5 + brightness * 0.5;
-
-  if (saturation != 1.0) {
-    float gray = dot(fragColor.rgb, vec3(0.299, 0.587, 0.114));
-    fragColor.rgb = mix(vec3(gray), fragColor.rgb, saturation);
-  }
-
-  fragColor.rgb *= raysColor;
+  intensity = pow(intensity, 1.6);
+  vec3 col = intensity * raysColor;
+  fragColor = vec4(col, intensity);
 }
 
 void main() {
@@ -231,7 +219,30 @@ void main() {
             });
         }
 
+        this.inView = true;
+        this.paused = false;
+
+        this.io = new IntersectionObserver((entries) => {
+            this.inView = entries[0]?.isIntersecting ?? true;
+            if (this.inView && !this.animationId) {
+                this.animationId = requestAnimationFrame(loop);
+            }
+        }, { threshold: 0.01 });
+        this.io.observe(this.container);
+
+        this.onVis = () => {
+            this.paused = document.hidden;
+            if (!this.paused && this.inView && !this.animationId) {
+                this.animationId = requestAnimationFrame(loop);
+            }
+        };
+        document.addEventListener('visibilitychange', this.onVis, { passive: true });
+
         const loop = t => {
+            if (this.paused || !this.inView) {
+                this.animationId = null;
+                return;
+            }
             if (!this.renderer || !this.mesh) return;
 
             this.uniforms.iTime.value = t * 0.001;
@@ -247,6 +258,7 @@ void main() {
                 this.renderer.render({ scene: this.mesh });
                 this.animationId = requestAnimationFrame(loop);
             } catch (error) {
+                this.animationId = null;
                 return;
             }
         };
@@ -256,6 +268,8 @@ void main() {
 
     destroy() {
         if (this.animationId) cancelAnimationFrame(this.animationId);
+        if (this.io) this.io.disconnect();
+        if (this.onVis) document.removeEventListener('visibilitychange', this.onVis);
         window.removeEventListener('resize', this.updatePlacement);
     }
 }

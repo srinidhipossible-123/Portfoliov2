@@ -5,7 +5,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: #000 url('/mywork-bg.png') center center / cover no-repeat;
+    background: #000 url('/mywork-bg.webp') center center / cover no-repeat;
     z-index: 10;
     overflow: hidden;
     display: flex;
@@ -200,6 +200,54 @@
     box-shadow: 0 0 8px #ff9900;
 }
 
+/* Top-right impact pill */
+.project-card-impact {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border-radius: 16px;
+    background: rgba(255, 120, 20, 0.16);
+    border: 1px solid rgba(255, 140, 20, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #ffd285;
+    letter-spacing: 0.3px;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.impact-star {
+    color: #ff9900;
+    font-size: 0.7rem;
+}
+
+.impact-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Project Role Tag */
+.project-card-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #ff9d26;
+    margin-bottom: -4px;
+}
+
 /* Card Content Container (Bottom Half) */
 .project-card-content {
     position: absolute;
@@ -338,6 +386,13 @@
 
 .project-btn-primary:hover svg {
     transform: translate(2px, -2px);
+}
+
+.project-btn-disabled {
+    opacity: 0.55;
+    cursor: default !important;
+    pointer-events: none;
+    border-style: dashed;
 }
 
 /* ==========================================================

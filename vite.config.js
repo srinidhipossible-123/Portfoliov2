@@ -23,8 +23,13 @@ export default defineConfig({
         comments: false, // Strips all comments in production
       },
     },
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
+        manualChunks: {
+          three: ['three'],
+          ogl: ['ogl'],
+        },
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',

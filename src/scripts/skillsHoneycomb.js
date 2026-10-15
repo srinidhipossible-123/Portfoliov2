@@ -23,31 +23,31 @@ const ORIGIN_Y = 190; // Center row Y
 
 const SKILLS = [
     // Row -2 (Top: 3 hexes, mirror-symmetric)
-    { id: 'top_left',    row: -2, col: -1.0, isCenter: false },
-    { id: 'top_mid',     row: -2, col:  0.0, isCenter: false },
-    { id: 'top_right',   row: -2, col:  1.0, isCenter: false },
+    { id: 'top_left',    row: -2, col: -1.0, isCenter: false, name: 'Git',          logo: '/logos/code-branch.png' },
+    { id: 'top_mid',     row: -2, col:  0.0, isCenter: false, name: 'Docker',       logo: '/logos/social.png' },
+    { id: 'top_right',   row: -2, col:  1.0, isCenter: false, name: 'GitHub',       logo: '/logos/github-sign.png' },
 
     // Row -1 (Upper: 4 hexes, mirror-symmetric)
-    { id: 'r1_left',     row: -1, col: -1.5, isCenter: false },
-    { id: 'r1_midleft',  row: -1, col: -0.5, isCenter: false },
-    { id: 'r1_midright', row: -1, col:  0.5, isCenter: false },
-    { id: 'r1_right',    row: -1, col:  1.5, isCenter: false },
+    { id: 'r1_left',     row: -1, col: -1.5, isCenter: false, name: 'Ollama',       logo: '/logos/ollama.png' },
+    { id: 'r1_midleft',  row: -1, col: -0.5, isCenter: false, name: 'React',        logo: '/logos/science.png' },
+    { id: 'r1_midright', row: -1, col:  0.5, isCenter: false, name: 'Node.js',      logo: '/logos/nodejs.png' },
+    { id: 'r1_right',    row: -1, col:  1.5, isCenter: false, name: 'Hugging Face', logo: '/logos/hugging.png' },
 
     // Row 0 (Middle: 5 hexes, with Skills dead center at 0,0)
-    { id: 'r0_farleft',  row:  0, col: -2.0, isCenter: false },
-    { id: 'r0_left',     row:  0, col: -1.0, isCenter: false },
-    { id: 'center',      row:  0, col:  0.0, isCenter: true, label: 'Skills' },
-    { id: 'r0_right',    row:  0, col:  1.0, isCenter: false },
-    { id: 'r0_farright', row:  0, col:  2.0, isCenter: false },
+    { id: 'r0_farleft',  row:  0, col: -2.0, isCenter: false, name: 'AWS',          logo: '/logos/aws.png' },
+    { id: 'r0_left',     row:  0, col: -1.0, isCenter: false, name: 'Python',       logo: '/logos/python.png' },
+    { id: 'center',      row:  0, col:  0.0, isCenter: true,  label: 'Skills',      name: 'Skills' },
+    { id: 'r0_right',    row:  0, col:  1.0, isCenter: false, name: 'Django',       logo: '/logos/django.png' },
+    { id: 'r0_farright', row:  0, col:  2.0, isCenter: false, name: 'Next.js',      logo: '/logos/nextjs.png' },
 
     // Row +1 (Lower: 4 hexes, mirror-symmetric)
-    { id: 'r2_left',     row:  1, col: -1.5, isCenter: false },
-    { id: 'r2_midleft',  row:  1, col: -0.5, isCenter: false },
-    { id: 'r2_midright', row:  1, col:  0.5, isCenter: false },
-    { id: 'r2_right',    row:  1, col:  1.5, isCenter: false },
+    { id: 'r2_left',     row:  1, col: -1.5, isCenter: false, name: 'MongoDB',      logo: '/logos/mongo.png' },
+    { id: 'r2_midleft',  row:  1, col: -0.5, isCenter: false, name: 'Flask',        logo: '/logos/flask.png' },
+    { id: 'r2_midright', row:  1, col:  0.5, isCenter: false, name: 'PostgreSQL',   logo: '/logos/postgres.png' },
+    { id: 'r2_right',    row:  1, col:  1.5, isCenter: false, name: 'Figma',        logo: '/logos/figma.png' },
 
     // Row +2 (Bottom: 1 hex, touching the glowing planet arc)
-    { id: 'bottom_mid',  row:  2, col:  0.0, isCenter: false },
+    { id: 'bottom_mid',  row:  2, col:  0.0, isCenter: false, name: 'SQL',          logo: '/logos/sql.png' },
 ];
 
 // Helper: Check if two hexes are spatial neighbors
@@ -146,7 +146,8 @@ function createHexKey(skill) {
     btn.className = 'hex-key' + (skill.isCenter ? ' center-key' : '');
     btn.setAttribute('data-id', skill.id);
     btn.setAttribute('type', 'button');
-    btn.setAttribute('aria-label', skill.isCenter ? 'Skills' : skill.id);
+    btn.setAttribute('aria-label', skill.name || (skill.isCenter ? 'Skills' : skill.id));
+    btn.setAttribute('title', skill.name || (skill.isCenter ? 'Skills' : skill.id));
     btn.style.left = `${x}px`;
     btn.style.top = `${y}px`;
 
@@ -172,11 +173,27 @@ function createHexKey(skill) {
         centerLabel.textContent = 'Skills';
         top.appendChild(centerLabel);
     } else {
-        // Empty slot ready for custom SVG logos
         const slot = document.createElement('div');
         slot.className = 'hex-svg-slot';
         slot.setAttribute('data-skill-id', skill.id);
+
+        if (skill.logo) {
+            const img = document.createElement('img');
+            img.className = 'hex-logo-img';
+            img.src = skill.logo;
+            img.alt = skill.name || skill.id;
+            img.draggable = false;
+            img.loading = 'lazy';
+            slot.appendChild(img);
+        }
+
         top.appendChild(slot);
+
+        // Hover tooltip pill
+        const tooltip = document.createElement('span');
+        tooltip.className = 'hex-tooltip';
+        tooltip.textContent = skill.name || skill.id;
+        btn.appendChild(tooltip);
     }
 
     btn.appendChild(backlight);

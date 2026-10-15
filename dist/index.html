@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=Noto+Sans+Devanagari:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=Noto+Sans+Devanagari:wght@300;400&family=Great+Vibes&family=Alex+Brush&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
 
@@ -23,8 +23,10 @@
             overflow-x: clip;
         }
     </style>
-  <script type="module" crossorigin src="/assets/index-C5ZTRqlR.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-C0XKjKqa.css">
+  <script type="module" crossorigin src="/assets/index-D0HZuiYk.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/ogl-BQWtgaVX.js">
+  <link rel="modulepreload" crossorigin href="/assets/three-B6Afyep4.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-Dz3SkusZ.css">
 </head>
 
 <body>
@@ -36,6 +38,27 @@
 
             <!-- Frame animation canvas -->
             <canvas id="animation-canvas"></canvas>
+
+            <!-- Initial Blur Glass Intro & Cursive Typing Overlay -->
+            <div class="hero-intro-glass" id="heroIntroGlass">
+                <div class="hero-intro-content">
+                    <div class="hero-typing-wrapper">
+                        <span class="hero-cursive-text" id="heroCursiveText"></span>
+                        <span class="hero-typing-cursor" id="heroTypingCursor"></span>
+                    </div>
+
+                    <button type="button" class="hero-scroll-nav" id="heroScrollNav" aria-label="Scroll down to view portfolio">
+                        <div class="scroll-mouse-shell">
+                            <span class="scroll-mouse-wheel"></span>
+                        </div>
+                        <span class="scroll-nav-label">Scroll down to view</span>
+                        <div class="scroll-chevrons">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
 
             <!-- All overlay sections -->
             <div class="overlay">
@@ -244,7 +267,7 @@
 
             <!-- Middle: 3D Handshake Attached to Bottom Border -->
             <div class="connect-handshake-wrap">
-                <img src="/let's connect.png" alt="Srinidhi S Joshi - Let's Connect Handshake" class="connect-handshake-img" loading="lazy" />
+                <img src="/lets-connect.webp" alt="Srinidhi S Joshi - Let's Connect Handshake" class="connect-handshake-img" loading="lazy" />
             </div>
 
             <!-- Right Side: Platform Social Buttons -->

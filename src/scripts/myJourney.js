@@ -11,89 +11,69 @@ import { OptionWheel } from './optionWheel.js';
 
 const JOURNEY_DATA = [
     {
-        year: '1st Year',
-        period: '2022 – 2023',
-        tagline: 'Foundation & National Benchmark',
-        headline: 'BIS Second Prize Winner',
-        summary: 'Achieved Second Prize in the prestigious national competition conducted by the Bureau of Indian Standards (BIS), establishing a benchmark of technical discipline and analytical logic.',
-        highlights: [
-            {
-                badge: 'National Honor',
-                title: 'Bureau of Indian Standards (BIS)',
-                desc: 'Awarded 2nd prize at the national level for engineering analysis and standardization excellence.'
-            },
-            {
-                badge: 'Core Exploration',
-                title: 'Data Structures & Logic',
-                desc: 'Built rigorous foundations in algorithmic problem solving, computational logic, and modular software architecture.'
-            }
+        year: 'Year 01',
+        period: 'Year 01 — Foundation',
+        tagline: 'Academic Excellence & First Exposure',
+        headline: 'YEAR 01 — FOUNDATION',
+        focus: 'Academic Excellence & First Exposure',
+        points: [
+            'Joined GM University through KCET seat allocation with a PCMB background and no prior Computer Science experience.',
+            'Attended a GDSC event, discovering GitHub, LinkedIn, hackathons and ideathons.',
+            '<strong>2nd Prize</strong> — Standard Essay Writing Competition, BIS Club.',
+            'Built foundational knowledge of programming and backend concepts.',
+            'Completed the year with a strong academic performance.'
         ],
-        tags: ['BIS Second Prize', 'Algorithms', 'Logic & Systems', 'National Contest']
+        milestone: 'Transitioned from a non-CS background to actively exploring software development.',
+        tags: ['PCMB to CS', 'GDSC Discovery', 'BIS Club 2nd Prize', 'Backend Basics', 'Academic Excellence']
     },
     {
-        year: '2nd Year',
-        period: '2023 – 2024',
-        tagline: 'Innovation & National Recognition',
-        headline: 'SIH 2024 Grand Finalist',
-        summary: 'Selected as a Grand Finalist at Smart India Hackathon (SIH) 2024, competing against thousands of teams nationwide to engineer high-impact solutions.',
-        highlights: [
-            {
-                badge: 'Smart India Hackathon',
-                title: 'SIH 2024 Grand Finalist',
-                desc: 'Architected and presented scalable software solutions addressing critical government and industry problem statements.'
-            },
-            {
-                badge: 'Full-Stack Mastery',
-                title: 'Collaborative Rapid Prototyping',
-                desc: 'Mastered high-velocity development cycles, distributed databases, and real-time backend pipelines.'
-            }
+        year: 'Year 02',
+        period: 'Year 02 — National Recognition',
+        tagline: 'Teamwork & Competitive Innovation',
+        headline: 'YEAR 02 — NATIONAL RECOGNITION',
+        focus: 'Teamwork & Competitive Innovation',
+        points: [
+            '<strong>SIH 2024 — Grand Finale Qualifier</strong>, Smart India Hackathon.',
+            'Worked in a six-member team on research, solution design, calculations and presentations.',
+            'Represented GM University at the Grand Finale hosted at KIET, Ghaziabad.',
+            'Gained five days of technical exposure, mentorship and collaboration with teams from across India.',
+            '<strong>8.91 CGPA</strong> — Academic milestone.'
         ],
-        tags: ['SIH 2024 Grand Finalist', 'Full Stack', 'System Architecture', 'Rapid Prototyping']
+        milestone: 'Became part of the first team from GM University to reach the SIH Grand Finale, as documented in my journey presentation.',
+        tags: ['SIH 2024 Finalist', 'Smart India Hackathon', 'KIET Ghaziabad', '8.91 CGPA', 'Team Research & Design']
     },
     {
-        year: '3rd Year',
-        period: '2024 – 2025',
-        tagline: 'Global Stage, Cyber Defense & Google Tokyo',
-        headline: 'E-Raksha, Cyber Summit & Google Japan',
-        summary: 'A landmark year of international recognition, representing India on national summit stages and competing in-person at Google Japan in Tokyo.',
-        highlights: [
-            {
-                badge: 'Cyber Defense',
-                title: '2nd Runner-up — E-Raksha Hackathon 2026',
-                desc: 'Awarded 2nd Runner-up for innovative cyber-threat mitigation, defense architecture, and security tooling.'
-            },
-            {
-                badge: 'National Summit',
-                title: 'Invitation: AI Summit 2026 Pre-event Cybersummit',
-                desc: 'Official invitation to attend the prestigious Cybersummit at Bharat Mandapam, New Delhi.'
-            },
-            {
-                badge: 'Global Stage',
-                title: 'Google Gemini AI Hackathon (Google Japan, Tokyo)',
-                desc: 'Shortlisted and participated in-person at Google Japan headquarters in Tokyo, building multimodal Gemini AI solutions.'
-            }
+        year: 'Year 03',
+        period: 'Year 03 — Building & Global Exposure',
+        tagline: 'Real-World Development, Hackathons & International Experience',
+        headline: 'YEAR 03 — BUILDING & GLOBAL EXPOSURE',
+        focus: 'Real-World Development, Hackathons & International Experience',
+        points: [
+            '<strong>4 Department Websites</strong> — Built and deployed with junior teammate Prasanna.',
+            'Received recognition associated with the university\'s Vice Chancellor for the department website work.',
+            '<strong>eRaksha Hackathon 2026 — 2nd Runner-Up</strong>, following qualification for the Grand Finale at IIT Delhi.',
+            'Participated in the AI summit at Bharat Mandapam, gaining exposure to the AI and cybersecurity ecosystem.',
+            '<strong>Google Gemini AI Hackathon — Selected Participant, Tokyo, Japan.</strong>',
+            'Interacted with experienced developers and gained international hackathon exposure.'
         ],
-        tags: ['E-Raksha 2nd Runner-up', 'Bharat Mandapam, New Delhi', 'Google Japan, Tokyo', 'Gemini AI']
+        milestone: 'Progressed from learning and competing to deploying real-world websites and representing my technical interests on national and international platforms.',
+        tags: ['4 Dept Websites', 'VC Recognition', 'eRaksha 2nd Runner-Up', 'IIT Delhi', 'Bharat Mandapam', 'Google Tokyo, Japan']
     },
     {
-        year: '4th Year',
-        period: '2025 – Present',
-        tagline: 'Enterprise AI & Industry Leadership',
-        headline: 'AI Intern @ Altimetrik (Flex Team)',
-        summary: 'Currently driving production generative AI systems as an AI Intern at Altimetrik, contributing to high-impact enterprise solutions as part of the elite Flex engineering team.',
-        highlights: [
-            {
-                badge: 'Current Role',
-                title: 'AI Intern — Flex Engineering Team',
-                desc: 'Engineering enterprise LLM pipelines, autonomous multi-agent workflows, and scalable AI infrastructure.'
-            },
-            {
-                badge: 'Production Impact',
-                title: 'Enterprise AI Implementation',
-                desc: 'Shipping resilient production-ready machine learning solutions bridging research algorithms with commercial scale.'
-            }
+        year: 'Year 04',
+        period: 'Year 04 — AI Engineering & Professional Growth',
+        tagline: 'Internship, Applied AI & Intelligent Systems',
+        headline: 'YEAR 04 — AI ENGINEERING & PROFESSIONAL GROWTH',
+        focus: 'Internship, Applied AI & Intelligent Systems',
+        points: [
+            '<strong>Two-Month Internship — Altimetrik SLK.</strong>',
+            'Completed training in Python, RAG, LLMs, LangChain, AI agents and agentic AI workflows.',
+            'Developed projects using a structured, specification-driven development approach with GitHub Copilot.',
+            'Explored Hugging Face, Ollama, open-source models and agent communication protocols.',
+            'Worked on a Persistent Memory Manager concept for agentic systems.'
         ],
-        tags: ['Altimetrik', 'AI Intern', 'Flex Team', 'Generative AI', 'Active Role']
+        milestone: 'Expanded from full-stack development into applied AI and agent-based system development.',
+        tags: ['Altimetrik SLK Internship', 'RAG & LLMs', 'LangChain & AI Agents', 'Agentic Workflows', 'Persistent Memory Manager']
     }
 ];
 
@@ -134,7 +114,7 @@ export class MyJourneySection {
         // 2. Initialize OptionWheel (Manual click selection, zero scroll hijack)
         if (this.wheelContainer) {
             this.optionWheel = new OptionWheel(this.wheelContainer, {
-                items: ['1st Year', '2nd Year', '3rd Year', '4th Year'],
+                items: ['Year 01', 'Year 02', 'Year 03', 'Year 04'],
                 defaultSelected: 0,
                 side: 'left',
                 fontSize: 2.2,
@@ -171,20 +151,23 @@ export class MyJourneySection {
                         <span class="journey-badge-dot"></span>
                         <span>${data.period}</span>
                     </div>
-                    <span class="journey-tagline">${data.tagline}</span>
+                    <span class="journey-tagline">Focus: ${data.focus}</span>
                 </div>
 
                 <h3 class="journey-headline">${data.headline}</h3>
-                <p class="journey-summary">${data.summary}</p>
 
-                <div class="journey-milestones">
-                    ${data.highlights.map(h => `
-                        <div class="journey-milestone-item">
-                            <div class="milestone-badge">${h.badge}</div>
-                            <h4 class="milestone-title">${h.title}</h4>
-                            <p class="milestone-desc">${h.desc}</p>
-                        </div>
+                <ul class="journey-points-list">
+                    ${data.points.map(pt => `
+                        <li class="journey-point-item">
+                            <span class="point-bullet-icon">✦</span>
+                            <span class="point-text">${pt}</span>
+                        </li>
                     `).join('')}
+                </ul>
+
+                <div class="journey-milestone-callout">
+                    <span class="milestone-callout-badge">Milestone</span>
+                    <p class="milestone-callout-text">${data.milestone}</p>
                 </div>
 
                 <div class="journey-tags">

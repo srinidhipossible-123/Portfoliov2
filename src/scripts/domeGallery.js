@@ -1,95 +1,399 @@
 /**
- * DomeGallery — React Bits (Vanilla JavaScript + CSS 3D Edition)
+ * Beyond the Code — Single-Viewport 41-Image Kinetic Bento Grid
  *
- * 3D Spherical Dome Photo & Moment Experience.
- * Uses public/gallary/ paths (/gallary/img1.jpg, /gallary/img2.jpg, etc.)
+ * Fits all 41 images from public/gallary/ (img1.jpeg .. img41.jpeg) inside
+ * the single 100vh Beyond the Code section by scaling the 4 aspect-ratio-matched
+ * Bento blocks into a compact 2x2 Bento Matrix (preserving the exact ~2.22
+ * block aspect ratio so every image's length & breadth ratio is unchanged).
+ *
+ * Hovering any image smoothly expands its tier, quadrant, column, and slot
+ * while surrounding cells across the grid dynamically adjust.
  */
 
-const DEFAULT_GALLARY_IMAGES = Array.from({ length: 16 }, (_, i) => ({
-    src: `/gallary/img${i + 1}.jpg`,
-    alt: `Moment ${i + 1}`,
-    index: i + 1,
-}));
+const BENTO_QUADRANTS_CONFIG = [
+    // =========================================================================
+    // QUADRANT 1 (Top-Left, 9 Images) — Reference Bento Layout
+    // =========================================================================
+    {
+        id: 'quad-1',
+        tier: 0,
+        side: 0,
+        columns: [
+            {
+                colFlex: 1.15,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 2.45,
+                        src: '/gallary/img2.jpeg',
+                        w: 1204,
+                        h: 1600,
+                        index: 2,
+                    },
+                    {
+                        type: 'split',
+                        flex: 1.0,
+                        items: [
+                            { src: '/gallary/img1.jpeg', w: 1600, h: 1200, index: 1, flex: 1 },
+                            { src: '/gallary/img4.jpeg', w: 1600, h: 1200, index: 4, flex: 1 },
+                        ],
+                    },
+                ],
+            },
+            {
+                colFlex: 1.25,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img5.jpeg',
+                        w: 1040,
+                        h: 780,
+                        index: 5,
+                    },
+                    {
+                        type: 'single',
+                        flex: 2.3,
+                        src: '/gallary/img12.jpeg',
+                        w: 720,
+                        h: 1280,
+                        index: 12,
+                    },
+                ],
+            },
+            {
+                colFlex: 1.25,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img6.jpeg',
+                        w: 4080,
+                        h: 3060,
+                        index: 6,
+                    },
+                    {
+                        type: 'single',
+                        flex: 2.3,
+                        src: '/gallary/img14.jpeg',
+                        w: 900,
+                        h: 1600,
+                        index: 14,
+                    },
+                ],
+            },
+            {
+                colFlex: 2.12,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img7.jpeg',
+                        w: 1280,
+                        h: 576,
+                        index: 7,
+                    },
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img9.jpeg',
+                        w: 1280,
+                        h: 576,
+                        index: 9,
+                    },
+                ],
+            },
+        ],
+    },
 
-const DEFAULTS = {
-    maxVerticalRotationDeg: 6,
-    dragSensitivity: 20,
-    enlargeTransitionMs: 350,
-    segments: 35,
-    fit: 0.62,
-    minRadius: 580,
-    maxRadius: 880,
-    padFactor: 0.25,
-    overlayBlurColor: '#000000',
-    dragDampening: 2,
-    openedImageWidth: '420px',
-    openedImageHeight: '420px',
-    imageBorderRadius: '28px',
-    openedImageBorderRadius: '30px',
-};
+    // =========================================================================
+    // QUADRANT 2 (Top-Right, 11 Images) — Wide Landscapes & Ultra-Tall Twins
+    // =========================================================================
+    {
+        id: 'quad-2',
+        tier: 0,
+        side: 1,
+        columns: [
+            {
+                colFlex: 1.48,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img13.jpeg',
+                        w: 1280,
+                        h: 720,
+                        index: 13,
+                    },
+                    {
+                        type: 'split',
+                        flex: 2.2,
+                        items: [
+                            { src: '/gallary/img3.jpeg', w: 577, h: 1280, index: 3, flex: 1 },
+                            { src: '/gallary/img19.jpeg', w: 520, h: 1156, index: 19, flex: 1 },
+                        ],
+                    },
+                ],
+            },
+            {
+                colFlex: 1.25,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 2.3,
+                        src: '/gallary/img15.jpeg',
+                        w: 900,
+                        h: 1600,
+                        index: 15,
+                    },
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img8.jpeg',
+                        w: 4080,
+                        h: 3060,
+                        index: 8,
+                    },
+                ],
+            },
+            {
+                colFlex: 1.55,
+                blocks: [
+                    {
+                        type: 'split',
+                        flex: 2.2,
+                        items: [
+                            { src: '/gallary/img20.jpeg', w: 719, h: 1600, index: 20, flex: 1 },
+                            { src: '/gallary/img26.jpeg', w: 1842, h: 4096, index: 26, flex: 1 },
+                        ],
+                    },
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img10.jpeg',
+                        w: 1600,
+                        h: 719,
+                        index: 10,
+                    },
+                ],
+            },
+            {
+                colFlex: 1.15,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 2.45,
+                        src: '/gallary/img36.jpeg',
+                        w: 1179,
+                        h: 1600,
+                        index: 36,
+                    },
+                    {
+                        type: 'split',
+                        flex: 1.0,
+                        items: [
+                            { src: '/gallary/img11.jpeg', w: 1600, h: 1200, index: 11, flex: 1 },
+                            { src: '/gallary/img29.jpeg', w: 1296, h: 972, index: 29, flex: 1 },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
 
-const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-const normalizeAngle = d => ((d % 360) + 360) % 360;
-const wrapAngleSigned = deg => {
-    const a = (((deg + 180) % 360) + 360) % 360;
-    return a - 180;
-};
-const getDataNumber = (el, name, fallback) => {
-    const attr = el.dataset[name] ?? el.getAttribute(`data-${name}`);
-    const n = attr == null ? NaN : parseFloat(attr);
-    return Number.isFinite(n) ? n : fallback;
-};
+    // =========================================================================
+    // QUADRANT 3 (Bottom-Left, 10 Images) — Balanced Portrait & Panoramic
+    // =========================================================================
+    {
+        id: 'quad-3',
+        tier: 1,
+        side: 0,
+        columns: [
+            {
+                colFlex: 1.25,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img33.jpeg',
+                        w: 1600,
+                        h: 1200,
+                        index: 33,
+                    },
+                    {
+                        type: 'single',
+                        flex: 2.3,
+                        src: '/gallary/img17.jpeg',
+                        w: 900,
+                        h: 1600,
+                        index: 17,
+                    },
+                ],
+            },
+            {
+                colFlex: 1.55,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img21.jpeg',
+                        w: 1600,
+                        h: 720,
+                        index: 21,
+                    },
+                    {
+                        type: 'split',
+                        flex: 2.2,
+                        items: [
+                            { src: '/gallary/img28.jpeg', w: 575, h: 1280, index: 28, flex: 1 },
+                            { src: '/gallary/img32.jpeg', w: 719, h: 1600, index: 32, flex: 1 },
+                        ],
+                    },
+                ],
+            },
+            {
+                colFlex: 1.32,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img16.jpeg',
+                        w: 1600,
+                        h: 900,
+                        index: 16,
+                    },
+                    {
+                        type: 'single',
+                        flex: 2.3,
+                        src: '/gallary/img18.jpeg',
+                        w: 900,
+                        h: 1600,
+                        index: 18,
+                    },
+                ],
+            },
+            {
+                colFlex: 1.55,
+                blocks: [
+                    {
+                        type: 'split',
+                        flex: 2.2,
+                        items: [
+                            { src: '/gallary/img 35.jpeg', w: 721, h: 1600, index: 35, flex: 1 },
+                            { src: '/gallary/img38.jpeg', w: 520, h: 1156, index: 38, flex: 1 },
+                        ],
+                    },
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img22.jpeg',
+                        w: 1600,
+                        h: 719,
+                        index: 22,
+                    },
+                ],
+            },
+        ],
+    },
 
-function buildItems(pool, seg) {
-    const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
-    const evenYs = [-4, -2, 0, 2, 4];
-    const oddYs = [-3, -1, 1, 3, 5];
+    // =========================================================================
+    // QUADRANT 4 (Bottom-Right, 11 Images) — Ultra-Wide Banners & Twin Portraits
+    // =========================================================================
+    {
+        id: 'quad-4',
+        tier: 1,
+        side: 1,
+        columns: [
+            {
+                colFlex: 1.55,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img23.jpeg',
+                        w: 1600,
+                        h: 720,
+                        index: 23,
+                    },
+                    {
+                        type: 'split',
+                        flex: 2.2,
+                        items: [
+                            { src: '/gallary/img39.jpeg', w: 719, h: 1600, index: 39, flex: 1 },
+                            { src: '/gallary/img41.jpeg', w: 520, h: 1156, index: 41, flex: 1 },
+                        ],
+                    },
+                ],
+            },
+            {
+                colFlex: 1.35,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 2.3,
+                        src: '/gallary/img25.jpeg',
+                        w: 720,
+                        h: 1280,
+                        index: 25,
+                    },
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img24.jpeg',
+                        w: 1600,
+                        h: 720,
+                        index: 24,
+                    },
+                ],
+            },
+            {
+                colFlex: 1.62,
+                blocks: [
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img27.jpeg',
+                        w: 4096,
+                        h: 1842,
+                        index: 27,
+                    },
+                    {
+                        type: 'split',
+                        flex: 2.1,
+                        items: [
+                            { src: '/gallary/img30.jpeg', w: 900, h: 1600, index: 30, flex: 1 },
+                            { src: '/gallary/img34.jpeg', w: 720, h: 1280, index: 34, flex: 1 },
+                        ],
+                    },
+                ],
+            },
+            {
+                colFlex: 1.62,
+                blocks: [
+                    {
+                        type: 'split',
+                        flex: 2.1,
+                        items: [
+                            { src: '/gallary/img37.jpeg', w: 900, h: 1600, index: 37, flex: 1 },
+                            { src: '/gallary/img40.jpeg', w: 900, h: 1600, index: 40, flex: 1 },
+                        ],
+                    },
+                    {
+                        type: 'single',
+                        flex: 1.0,
+                        src: '/gallary/img31.jpeg',
+                        w: 4096,
+                        h: 1844,
+                        index: 31,
+                    },
+                ],
+            },
+        ],
+    },
+];
 
-    const coords = xCols.flatMap((x, c) => {
-        const ys = c % 2 === 0 ? evenYs : oddYs;
-        return ys.map(y => ({ x, y, sizeX: 2, sizeY: 2 }));
-    });
-
-    const totalSlots = coords.length;
-    if (pool.length === 0) {
-        return coords.map(c => ({ ...c, src: '', alt: '' }));
-    }
-
-    const normalizedImages = pool.map(image => {
-        if (typeof image === 'string') {
-            return { src: image, alt: '' };
-        }
-        return { src: image.src || '', alt: image.alt || '', index: image.index || 1 };
-    });
-
-    const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
-
-    for (let i = 1; i < usedImages.length; i++) {
-        if (usedImages[i].src === usedImages[i - 1].src) {
-            for (let j = i + 1; j < usedImages.length; j++) {
-                if (usedImages[j].src !== usedImages[i].src) {
-                    const tmp = usedImages[i];
-                    usedImages[i] = usedImages[j];
-                    usedImages[j] = tmp;
-                    break;
-                }
-            }
-        }
-    }
-
-    return coords.map((c, i) => ({
-        ...c,
-        src: usedImages[i].src,
-        alt: usedImages[i].alt,
-        index: usedImages[i].index,
-    }));
-}
-
-function computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments) {
-    const unit = 360 / segments / 2;
-    const rotateY = unit * (offsetX + (sizeX - 1) / 2);
-    const rotateX = unit * (offsetY - (sizeY - 1) / 2);
-    return { rotateX, rotateY };
+function randomBetween(min, max) {
+    return +(min + Math.random() * (max - min)).toFixed(2);
 }
 
 export class DomeGallery {
@@ -97,529 +401,357 @@ export class DomeGallery {
         this.container = document.getElementById(containerId);
         if (!this.container) return;
 
-        this.images = options.images || DEFAULT_GALLARY_IMAGES;
-        this.fit = options.fit ?? DEFAULTS.fit;
-        this.minRadius = options.minRadius ?? DEFAULTS.minRadius;
-        this.maxRadius = options.maxRadius ?? DEFAULTS.maxRadius;
-        this.padFactor = options.padFactor ?? DEFAULTS.padFactor;
-        this.overlayBlurColor = options.overlayBlurColor || DEFAULTS.overlayBlurColor;
-        this.maxVerticalRotationDeg = options.maxVerticalRotationDeg ?? DEFAULTS.maxVerticalRotationDeg;
-        this.dragSensitivity = options.dragSensitivity ?? DEFAULTS.dragSensitivity;
-        this.enlargeTransitionMs = options.enlargeTransitionMs ?? DEFAULTS.enlargeTransitionMs;
-        this.segments = options.segments ?? DEFAULTS.segments;
-        this.dragDampening = options.dragDampening ?? DEFAULTS.dragDampening;
-        this.openedImageWidth = options.openedImageWidth || DEFAULTS.openedImageWidth;
-        this.openedImageHeight = options.openedImageHeight || DEFAULTS.openedImageHeight;
-        this.imageBorderRadius = options.imageBorderRadius || DEFAULTS.imageBorderRadius;
-        this.openedImageBorderRadius = options.openedImageBorderRadius || DEFAULTS.openedImageBorderRadius;
-
-        this.rotation = { x: 0, y: 0 };
-        this.startRot = { x: 0, y: 0 };
-        this.startPos = null;
-        this.isDragging = false;
-        this.hasMoved = false;
-        this.inertiaRAF = null;
-        this.autoDriftRAF = null;
-        this.isOpening = false;
-        this.openStartedAt = 0;
-        this.lastDragEndAt = 0;
-        this.focusedEl = null;
-        this.originalTilePosition = null;
-
+        this.quadsConfig = options.quadsConfig || BENTO_QUADRANTS_CONFIG;
+        this.allImagesFlat = [];
+        this.allCards = [];
+        this.tierEls = [];
+        this.quadControllers = [];
+        this.currentLightboxIdx = 0;
         this.init();
+    }
+
+    createCardElement(itemData, onHoverCallback) {
+        const flatIdx = this.allImagesFlat.length;
+        this.allImagesFlat.push(itemData);
+
+        const card = document.createElement('div');
+        const ratio = itemData.w && itemData.h ? +(itemData.w / itemData.h).toFixed(2) : 1;
+        const orientClass = ratio > 1.65 ? 'is-ultrawide' : ratio > 1.1 ? 'is-landscape' : ratio < 0.6 ? 'is-tall' : 'is-portrait';
+
+        card.className = `bento-card ${orientClass}`;
+        card.dataset.index = itemData.index;
+        card.dataset.ratio = ratio;
+        card.style.setProperty('--card-flex', itemData.flex ?? 1);
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Moment ${itemData.index}`);
+
+        const img = document.createElement('img');
+        img.src = itemData.src;
+        img.alt = `Moment ${itemData.index}`;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.draggable = false;
+
+        const placeholder = document.createElement('div');
+        placeholder.className = 'bento-placeholder';
+        placeholder.innerHTML = `
+            <svg class="bento-placeholder-icon" viewBox="0 0 24 24">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span class="bento-placeholder-text">${itemData.index}</span>
+        `;
+
+        img.addEventListener('error', () => {
+            img.style.display = 'none';
+            if (!placeholder.parentElement) {
+                card.appendChild(placeholder);
+            }
+        });
+
+        img.addEventListener('load', () => {
+            img.style.display = 'block';
+            if (placeholder.parentElement) {
+                placeholder.remove();
+            }
+        });
+
+        card.appendChild(img);
+
+        card.addEventListener('mouseenter', () => {
+            if (onHoverCallback) onHoverCallback(card);
+        });
+
+        card.addEventListener('click', () => this.openLightbox(flatIdx));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.openLightbox(flatIdx);
+            }
+        });
+
+        this.allCards.push(card);
+        return card;
+    }
+
+    buildQuadrant(quadCfg, quadIdx) {
+        const quadEl = document.createElement('div');
+        quadEl.className = 'bento-quadrant';
+        quadEl.style.setProperty('--quad-flex', 1);
+
+        const colControllers = [];
+
+        quadCfg.columns.forEach((colCfg, colIdx) => {
+            const colEl = document.createElement('div');
+            colEl.className = `bento-col bento-col--${colIdx + 1}`;
+            colEl.style.setProperty('--col-flex', colCfg.colFlex);
+
+            const blockControllers = [];
+
+            colCfg.blocks.forEach((blockCfg, blockIdx) => {
+                if (blockCfg.type === 'single') {
+                    const cardEl = this.createCardElement(blockCfg, (hoveredCard) => {
+                        this.handleMatrixHover(quadIdx, colIdx, blockIdx, null, hoveredCard);
+                    });
+                    colEl.appendChild(cardEl);
+                    blockControllers.push({
+                        type: 'single',
+                        baseFlex: blockCfg.flex,
+                        el: cardEl,
+                    });
+                } else if (blockCfg.type === 'split') {
+                    const splitRowEl = document.createElement('div');
+                    splitRowEl.className = 'bento-split-row';
+                    splitRowEl.style.setProperty('--row-flex', blockCfg.flex);
+
+                    const subCards = [];
+                    blockCfg.items.forEach((subItem, subIdx) => {
+                        const cardEl = this.createCardElement(subItem, (hoveredCard) => {
+                            this.handleMatrixHover(quadIdx, colIdx, blockIdx, subIdx, hoveredCard);
+                        });
+                        splitRowEl.appendChild(cardEl);
+                        subCards.push({
+                            baseFlex: subItem.flex ?? 1,
+                            el: cardEl,
+                        });
+                    });
+
+                    colEl.appendChild(splitRowEl);
+                    blockControllers.push({
+                        type: 'split',
+                        baseFlex: blockCfg.flex,
+                        el: splitRowEl,
+                        subCards,
+                    });
+                }
+            });
+
+            quadEl.appendChild(colEl);
+            colControllers.push({
+                baseColFlex: colCfg.colFlex,
+                el: colEl,
+                blocks: blockControllers,
+            });
+        });
+
+        const ctrl = {
+            quadIdx,
+            tier: quadCfg.tier,
+            side: quadCfg.side,
+            el: quadEl,
+            columns: colControllers,
+        };
+        this.quadControllers.push(ctrl);
+        return quadEl;
+    }
+
+    handleMatrixHover(hoveredQuadIdx, hoveredColIdx, hoveredBlockIdx, hoveredSubIdx, hoveredCard) {
+        this.wrapperEl.classList.add('is-interacting');
+        const activeQuad = this.quadControllers[hoveredQuadIdx];
+        const activeTier = activeQuad.tier;
+
+        // 1. Expand the active horizontal tier (top or bottom half) slightly
+        this.tierEls.forEach((tierEl, tIdx) => {
+            tierEl.style.setProperty('--tier-flex', tIdx === activeTier ? 1.32 : 0.78);
+        });
+
+        // 2. Adjust all 4 quadrants and their internal columns/cards
+        this.quadControllers.forEach((qCtrl, qIdx) => {
+            const isHoveredQuad = qIdx === hoveredQuadIdx;
+            const isSameTier = qCtrl.tier === activeTier;
+
+            if (isHoveredQuad) {
+                qCtrl.el.style.setProperty('--quad-flex', 1.35);
+            } else if (isSameTier) {
+                qCtrl.el.style.setProperty('--quad-flex', 0.75);
+            } else {
+                qCtrl.el.style.setProperty('--quad-flex', randomBetween(0.88, 1.14));
+            }
+
+            qCtrl.columns.forEach((colCtrl, cIdx) => {
+                const isHoveredCol = isHoveredQuad && cIdx === hoveredColIdx;
+
+                if (isHoveredCol) {
+                    colCtrl.el.style.setProperty('--col-flex', +(colCtrl.baseColFlex * randomBetween(1.48, 1.72)).toFixed(2));
+                } else if (isHoveredQuad) {
+                    colCtrl.el.style.setProperty('--col-flex', +(colCtrl.baseColFlex * randomBetween(0.72, 0.96)).toFixed(2));
+                } else {
+                    colCtrl.el.style.setProperty('--col-flex', +(colCtrl.baseColFlex * randomBetween(0.82, 1.2)).toFixed(2));
+                }
+
+                colCtrl.blocks.forEach((blk, bIdx) => {
+                    const isHoveredBlock = isHoveredCol && bIdx === hoveredBlockIdx;
+
+                    if (blk.type === 'single') {
+                        if (isHoveredBlock) {
+                            blk.el.style.setProperty('--card-flex', +(blk.baseFlex * randomBetween(1.6, 2.1)).toFixed(2));
+                        } else if (isHoveredCol) {
+                            blk.el.style.setProperty('--card-flex', +(blk.baseFlex * randomBetween(0.55, 0.78)).toFixed(2));
+                        } else {
+                            blk.el.style.setProperty('--card-flex', +(blk.baseFlex * randomBetween(0.76, 1.35)).toFixed(2));
+                        }
+                    } else if (blk.type === 'split') {
+                        if (isHoveredBlock) {
+                            blk.el.style.setProperty('--row-flex', +(blk.baseFlex * randomBetween(1.5, 1.9)).toFixed(2));
+                            blk.subCards.forEach((sc, sIdx) => {
+                                sc.el.style.setProperty('--card-flex', sIdx === hoveredSubIdx ? randomBetween(1.75, 2.25) : randomBetween(0.68, 0.85));
+                            });
+                        } else if (isHoveredCol) {
+                            blk.el.style.setProperty('--row-flex', +(blk.baseFlex * randomBetween(0.58, 0.8)).toFixed(2));
+                            blk.subCards.forEach((sc) => {
+                                sc.el.style.setProperty('--card-flex', randomBetween(0.85, 1.2));
+                            });
+                        } else {
+                            blk.el.style.setProperty('--row-flex', +(blk.baseFlex * randomBetween(0.78, 1.3)).toFixed(2));
+                            blk.subCards.forEach((sc) => {
+                                sc.el.style.setProperty('--card-flex', randomBetween(0.8, 1.25));
+                            });
+                        }
+                    }
+                });
+            });
+        });
+
+        this.allCards.forEach((cardEl) => {
+            cardEl.classList.toggle('is-hovered', cardEl === hoveredCard);
+        });
+    }
+
+    resetMatrixProportions() {
+        this.wrapperEl.classList.remove('is-interacting');
+
+        this.tierEls.forEach((tierEl) => {
+            tierEl.style.setProperty('--tier-flex', 1);
+        });
+
+        this.quadControllers.forEach((qCtrl) => {
+            qCtrl.el.style.setProperty('--quad-flex', 1);
+            qCtrl.columns.forEach((colCtrl) => {
+                colCtrl.el.style.setProperty('--col-flex', colCtrl.baseColFlex);
+                colCtrl.blocks.forEach((blk) => {
+                    if (blk.type === 'single') {
+                        blk.el.style.setProperty('--card-flex', blk.baseFlex);
+                    } else if (blk.type === 'split') {
+                        blk.el.style.setProperty('--row-flex', blk.baseFlex);
+                        blk.subCards.forEach((sc) => {
+                            sc.el.style.setProperty('--card-flex', sc.baseFlex);
+                        });
+                    }
+                });
+            });
+        });
+
+        this.allCards.forEach((cardEl) => {
+            cardEl.classList.remove('is-hovered');
+        });
     }
 
     init() {
         this.container.innerHTML = '';
+        this.allImagesFlat = [];
+        this.allCards = [];
+        this.tierEls = [];
+        this.quadControllers = [];
 
-        // Root Sphere Element
-        this.root = document.createElement('div');
-        this.root.className = 'sphere-root';
-        this.root.style.setProperty('--segments-x', this.segments);
-        this.root.style.setProperty('--segments-y', this.segments);
-        this.root.style.setProperty('--overlay-blur-color', this.overlayBlurColor);
-        this.root.style.setProperty('--tile-radius', this.imageBorderRadius);
-        this.root.style.setProperty('--enlarge-radius', this.openedImageBorderRadius);
-        this.container.appendChild(this.root);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bento-gallery-wrapper';
+        this.wrapperEl = wrapper;
 
-        // Main & Stage
-        this.main = document.createElement('main');
-        this.main.className = 'sphere-main';
-        this.root.appendChild(this.main);
+        // Build 2 horizontal tiers (each containing 2 Bento quadrants side-by-side)
+        const topTier = document.createElement('div');
+        topTier.className = 'bento-matrix-tier';
+        topTier.style.setProperty('--tier-flex', 1);
 
-        this.stage = document.createElement('div');
-        this.stage.className = 'stage';
-        this.main.appendChild(this.stage);
+        const bottomTier = document.createElement('div');
+        bottomTier.className = 'bento-matrix-tier';
+        bottomTier.style.setProperty('--tier-flex', 1);
 
-        this.sphere = document.createElement('div');
-        this.sphere.className = 'sphere';
-        this.stage.appendChild(this.sphere);
+        this.tierEls = [topTier, bottomTier];
 
-        // Build items
-        const items = buildItems(this.images, this.segments);
-        items.forEach((it, i) => {
-            const itemEl = document.createElement('div');
-            itemEl.className = 'item';
-            itemEl.dataset.src = it.src;
-            itemEl.dataset.offsetX = it.x;
-            itemEl.dataset.offsetY = it.y;
-            itemEl.dataset.sizeX = it.sizeX;
-            itemEl.dataset.sizeY = it.sizeY;
-            itemEl.style.setProperty('--offset-x', it.x);
-            itemEl.style.setProperty('--offset-y', it.y);
-            itemEl.style.setProperty('--item-size-x', it.sizeX);
-            itemEl.style.setProperty('--item-size-y', it.sizeY);
-
-            const imgWrapper = document.createElement('div');
-            imgWrapper.className = 'item__image';
-            imgWrapper.setAttribute('role', 'button');
-            imgWrapper.setAttribute('tabindex', '0');
-            imgWrapper.setAttribute('aria-label', it.alt || 'Open moment');
-
-            // Image tag
-            const img = document.createElement('img');
-            img.src = it.src;
-            img.alt = it.alt;
-            img.draggable = false;
-            img.loading = 'lazy';
-
-            // Placeholder fallback when image file hasn't been uploaded yet
-            const placeholder = document.createElement('div');
-            placeholder.className = 'item-placeholder';
-            placeholder.innerHTML = `
-                <svg class="item-placeholder-icon" viewBox="0 0 24 24">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                    <circle cx="12" cy="13" r="4"/>
-                </svg>
-                <span class="item-placeholder-text">Moment ${it.index}</span>
-            `;
-
-            img.addEventListener('error', () => {
-                img.style.display = 'none';
-                imgWrapper.appendChild(placeholder);
-            });
-
-            img.addEventListener('load', () => {
-                img.style.display = 'block';
-                if (placeholder.parentElement) {
-                    placeholder.remove();
-                }
-            });
-
-            imgWrapper.appendChild(img);
-            itemEl.appendChild(imgWrapper);
-            this.sphere.appendChild(itemEl);
-
-            // Click listener
-            imgWrapper.addEventListener('click', (e) => this.onTileClick(e));
+        this.quadsConfig.forEach((quadCfg, qIdx) => {
+            const quadEl = this.buildQuadrant(quadCfg, qIdx);
+            if (quadCfg.tier === 0) {
+                topTier.appendChild(quadEl);
+            } else {
+                bottomTier.appendChild(quadEl);
+            }
         });
 
-        // Overlays & Vignettes
-        const overlay = document.createElement('div');
-        overlay.className = 'overlay';
-        this.main.appendChild(overlay);
+        wrapper.appendChild(topTier);
+        wrapper.appendChild(bottomTier);
 
-        const overlayBlur = document.createElement('div');
-        overlayBlur.className = 'overlay overlay--blur';
-        this.main.appendChild(overlayBlur);
-
-        const edgeTop = document.createElement('div');
-        edgeTop.className = 'edge-fade edge-fade--top';
-        this.main.appendChild(edgeTop);
-
-        const edgeBottom = document.createElement('div');
-        edgeBottom.className = 'edge-fade edge-fade--bottom';
-        this.main.appendChild(edgeBottom);
-
-        // Viewer / Enlarge Frame
-        this.viewer = document.createElement('div');
-        this.viewer.className = 'viewer';
-        this.main.appendChild(this.viewer);
-
-        this.scrim = document.createElement('div');
-        this.scrim.className = 'scrim';
-        this.viewer.appendChild(this.scrim);
-
-        this.frame = document.createElement('div');
-        this.frame.className = 'frame';
-        this.viewer.appendChild(this.frame);
-
-        // Setup resize handling
-        this.setupResize();
-
-        // Setup gestures
-        this.setupGestures();
-
-        // Setup modal close
-        this.setupClose();
-
-        // Start subtle idle auto-drift
-        this.startAutoDrift();
-    }
-
-    setupResize() {
-        const resize = () => {
-            const rect = this.root.getBoundingClientRect();
-            const w = Math.max(1, rect.width);
-            const h = Math.max(1, rect.height);
-            const minDim = Math.min(w, h);
-            const aspect = w / h;
-            const basis = aspect >= 1.3 ? w : minDim;
-
-            let radius = basis * this.fit;
-            const heightGuard = h * 1.35;
-            radius = Math.min(radius, heightGuard);
-            radius = clamp(radius, this.minRadius, this.maxRadius);
-            this.lockedRadius = Math.round(radius);
-
-            const viewerPad = Math.max(8, Math.round(minDim * this.padFactor));
-            this.root.style.setProperty('--radius', `${this.lockedRadius}px`);
-            this.root.style.setProperty('--viewer-pad', `${viewerPad}px`);
-
-            this.applyTransform(this.rotation.x, this.rotation.y);
-        };
-
-        if (window.ResizeObserver) {
-            this.ro = new ResizeObserver(() => resize());
-            this.ro.observe(this.root);
-        } else {
-            window.addEventListener('resize', resize);
-        }
-
-        resize();
-    }
-
-    applyTransform(xDeg, yDeg) {
-        if (this.sphere) {
-            this.sphere.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg}deg)`;
-        }
-    }
-
-    startAutoDrift() {
-        const drift = () => {
-            if (!this.isDragging && !this.inertiaRAF && !this.isOpening && !this.focusedEl) {
-                this.rotation.y = wrapAngleSigned(this.rotation.y + 0.04);
-                this.applyTransform(this.rotation.x, this.rotation.y);
-            }
-            this.autoDriftRAF = requestAnimationFrame(drift);
-        };
-        this.autoDriftRAF = requestAnimationFrame(drift);
-    }
-
-    setupGestures() {
-        let lastMoveTime = performance.now();
-        let lastPos = { x: 0, y: 0 };
-        let velocity = { x: 0, y: 0 };
-
-        const onDown = (clientX, clientY) => {
-            if (this.focusedEl) return;
-            this.stopInertia();
-            this.isDragging = true;
-            this.hasMoved = false;
-            this.startRot = { ...this.rotation };
-            this.startPos = { x: clientX, y: clientY };
-            lastPos = { x: clientX, y: clientY };
-            lastMoveTime = performance.now();
-            velocity = { x: 0, y: 0 };
-        };
-
-        const onMove = (clientX, clientY) => {
-            if (this.focusedEl || !this.isDragging || !this.startPos) return;
-            const dxTotal = clientX - this.startPos.x;
-            const dyTotal = clientY - this.startPos.y;
-
-            if (!this.hasMoved) {
-                const dist2 = dxTotal * dxTotal + dyTotal * dyTotal;
-                if (dist2 > 16) this.hasMoved = true;
-            }
-
-            const now = performance.now();
-            const dt = Math.max(1, now - lastMoveTime);
-            velocity.x = (clientX - lastPos.x) / dt;
-            velocity.y = (clientY - lastPos.y) / dt;
-            lastPos = { x: clientX, y: clientY };
-            lastMoveTime = now;
-
-            const nextX = clamp(
-                this.startRot.x - dyTotal / this.dragSensitivity,
-                -this.maxVerticalRotationDeg,
-                this.maxVerticalRotationDeg
-            );
-            const nextY = wrapAngleSigned(this.startRot.y + dxTotal / this.dragSensitivity);
-
-            this.rotation = { x: nextX, y: nextY };
-            this.applyTransform(nextX, nextY);
-        };
-
-        const onUp = () => {
-            if (!this.isDragging) return;
-            this.isDragging = false;
-            if (this.hasMoved) {
-                this.lastDragEndAt = performance.now();
-                if (Math.abs(velocity.x) > 0.05 || Math.abs(velocity.y) > 0.05) {
-                    this.startInertia(velocity.x, velocity.y);
-                }
-            }
-            this.hasMoved = false;
-        };
-
-        // Mouse Events
-        this.main.addEventListener('mousedown', (e) => onDown(e.clientX, e.clientY));
-        window.addEventListener('mousemove', (e) => {
-            if (this.isDragging) onMove(e.clientX, e.clientY);
-        });
-        window.addEventListener('mouseup', () => onUp());
-
-        // Touch Events
-        this.main.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) onDown(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: true });
-
-        window.addEventListener('touchmove', (e) => {
-            if (this.isDragging && e.touches.length === 1) {
-                onMove(e.touches[0].clientX, e.touches[0].clientY);
-            }
-        }, { passive: true });
-
-        window.addEventListener('touchend', () => onUp());
-    }
-
-    stopInertia() {
-        if (this.inertiaRAF) {
-            cancelAnimationFrame(this.inertiaRAF);
-            this.inertiaRAF = null;
-        }
-    }
-
-    startInertia(vx, vy) {
-        const MAX_V = 1.4;
-        let vX = clamp(vx, -MAX_V, MAX_V) * 80;
-        let vY = clamp(vy, -MAX_V, MAX_V) * 80;
-        let frames = 0;
-        const d = clamp(this.dragDampening ?? 2, 0, 3);
-        const frictionMul = 0.94 + 0.02 * (3 - d);
-        const stopThreshold = 0.015;
-        const maxFrames = 180;
-
-        const step = () => {
-            vX *= frictionMul;
-            vY *= frictionMul;
-            if (Math.abs(vX) < stopThreshold && Math.abs(vY) < stopThreshold) {
-                this.inertiaRAF = null;
-                return;
-            }
-            if (++frames > maxFrames) {
-                this.inertiaRAF = null;
-                return;
-            }
-            const nextX = clamp(this.rotation.x - vY / 200, -this.maxVerticalRotationDeg, this.maxVerticalRotationDeg);
-            const nextY = wrapAngleSigned(this.rotation.y + vX / 200);
-            this.rotation = { x: nextX, y: nextY };
-            this.applyTransform(nextX, nextY);
-            this.inertiaRAF = requestAnimationFrame(step);
-        };
-        this.stopInertia();
-        this.inertiaRAF = requestAnimationFrame(step);
-    }
-
-    onTileClick(e) {
-        if (this.isDragging || this.hasMoved) return;
-        if (performance.now() - this.lastDragEndAt < 80) return;
-        if (this.isOpening) return;
-        this.openItem(e.currentTarget);
-    }
-
-    openItem(el) {
-        if (this.isOpening) return;
-        this.isOpening = true;
-        this.openStartedAt = performance.now();
-        const parent = el.parentElement;
-        this.focusedEl = el;
-
-        const offsetX = getDataNumber(parent, 'offsetX', 0);
-        const offsetY = getDataNumber(parent, 'offsetY', 0);
-        const sizeX = getDataNumber(parent, 'sizeX', 2);
-        const sizeY = getDataNumber(parent, 'sizeY', 2);
-        const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, this.segments);
-        const parentY = normalizeAngle(parentRot.rotateY);
-        const globalY = normalizeAngle(this.rotation.y);
-
-        let rotY = -(parentY + globalY) % 360;
-        if (rotY < -180) rotY += 360;
-        const rotX = -parentRot.rotateX - this.rotation.x;
-
-        parent.style.setProperty('--rot-y-delta', `${rotY}deg`);
-        parent.style.setProperty('--rot-x-delta', `${rotX}deg`);
-
-        const refDiv = document.createElement('div');
-        refDiv.className = 'item__image item__image--reference';
-        refDiv.style.opacity = '0';
-        refDiv.style.transform = `rotateX(${-parentRot.rotateX}deg) rotateY(${-parentRot.rotateY}deg)`;
-        parent.appendChild(refDiv);
-
-        void refDiv.offsetHeight;
-
-        const tileR = refDiv.getBoundingClientRect();
-        const mainR = this.main.getBoundingClientRect();
-        const frameR = this.frame.getBoundingClientRect();
-
-        if (tileR.width <= 0 || tileR.height <= 0) {
-            this.isOpening = false;
-            this.focusedEl = null;
-            parent.removeChild(refDiv);
-            return;
-        }
-
-        this.originalTilePosition = { left: tileR.left, top: tileR.top, width: tileR.width, height: tileR.height };
-        el.style.visibility = 'hidden';
-
-        const overlay = document.createElement('div');
-        overlay.className = 'enlarge';
-        overlay.style.position = 'absolute';
-        overlay.style.left = `${frameR.left - mainR.left}px`;
-        overlay.style.top = `${frameR.top - mainR.top}px`;
-        overlay.style.width = `${frameR.width}px`;
-        overlay.style.height = `${frameR.height}px`;
-        overlay.style.opacity = '0';
-
-        const rawSrc = parent.dataset.src || el.querySelector('img')?.src || '';
-        const img = document.createElement('img');
-        img.src = rawSrc;
-
-        // If source image errored, display placeholder inside enlarged modal
-        img.addEventListener('error', () => {
-            img.style.display = 'none';
-            const placeholder = document.createElement('div');
-            placeholder.className = 'item-placeholder';
-            placeholder.innerHTML = `
-                <svg class="item-placeholder-icon" viewBox="0 0 24 24" style="width:48px;height:48px;">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                    <circle cx="12" cy="13" r="4"/>
-                </svg>
-                <span class="item-placeholder-text" style="font-size:1rem;margin-top:8px;">${rawSrc.split('/').pop()}</span>
-                <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Place photo in public/gallary/ to display</span>
-            `;
-            overlay.appendChild(placeholder);
+        wrapper.addEventListener('mouseleave', () => {
+            this.resetMatrixProportions();
         });
 
-        overlay.appendChild(img);
-
-        // Close button
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'enlarge-close-hint';
-        closeBtn.innerHTML = `&times;`;
-        closeBtn.setAttribute('aria-label', 'Close');
-        closeBtn.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            this.closeEnlarge();
-        });
-        overlay.appendChild(closeBtn);
-
-        this.viewer.appendChild(overlay);
-
-        const tx0 = tileR.left - frameR.left;
-        const ty0 = tileR.top - frameR.top;
-        const sx0 = tileR.width / frameR.width || 1;
-        const sy0 = tileR.height / frameR.height || 1;
-
-        overlay.style.transform = `translate(${tx0}px, ${ty0}px) scale(${sx0}, ${sy0})`;
-
-        setTimeout(() => {
-            if (!overlay.parentElement) return;
-            overlay.style.opacity = '1';
-            overlay.style.transform = 'translate(0px, 0px) scale(1, 1)';
-            this.root.setAttribute('data-enlarging', 'true');
-        }, 16);
-    }
-
-    setupClose() {
-        this.scrim.addEventListener('click', () => this.closeEnlarge());
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') this.closeEnlarge();
-        });
-    }
-
-    closeEnlarge() {
-        if (performance.now() - this.openStartedAt < 250) return;
-        const el = this.focusedEl;
-        if (!el) return;
-
-        const parent = el.parentElement;
-        const overlay = this.viewer.querySelector('.enlarge');
-        if (!overlay) return;
-
-        const refDiv = parent.querySelector('.item__image--reference');
-        const originalPos = this.originalTilePosition;
-
-        if (!originalPos) {
-            overlay.remove();
-            if (refDiv) refDiv.remove();
-            parent.style.setProperty('--rot-y-delta', '0deg');
-            parent.style.setProperty('--rot-x-delta', '0deg');
-            el.style.visibility = '';
-            this.focusedEl = null;
-            this.root.removeAttribute('data-enlarging');
-            this.isOpening = false;
-            return;
-        }
-
-        const currentRect = overlay.getBoundingClientRect();
-        const rootRect = this.root.getBoundingClientRect();
-
-        const animatingOverlay = document.createElement('div');
-        animatingOverlay.className = 'enlarge-closing';
-        animatingOverlay.style.cssText = `
-            position: absolute;
-            left: ${currentRect.left - rootRect.left}px;
-            top: ${currentRect.top - rootRect.top}px;
-            width: ${currentRect.width}px;
-            height: ${currentRect.height}px;
-            z-index: 9999;
-            border-radius: var(--enlarge-radius, 28px);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-            transition: all ${this.enlargeTransitionMs}ms ease-out;
-            pointer-events: none;
+        // Lightbox viewer for full-resolution inspection
+        this.lightbox = document.createElement('div');
+        this.lightbox.className = 'bento-lightbox';
+        this.lightbox.innerHTML = `
+            <div class="bento-lightbox-scrim"></div>
+            <button class="bento-lightbox-nav bento-lightbox-prev" aria-label="Previous image">&#10094;</button>
+            <div class="bento-lightbox-content">
+                <img class="bento-lightbox-img" src="" alt="" />
+                <button class="bento-lightbox-close" aria-label="Close preview">&times;</button>
+            </div>
+            <button class="bento-lightbox-nav bento-lightbox-next" aria-label="Next image">&#10095;</button>
         `;
+        wrapper.appendChild(this.lightbox);
 
-        const originalImg = overlay.querySelector('img');
-        if (originalImg) {
-            const img = originalImg.cloneNode();
-            img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
-            animatingOverlay.appendChild(img);
-        }
+        this.container.appendChild(wrapper);
 
-        overlay.remove();
-        this.root.appendChild(animatingOverlay);
-        void animatingOverlay.getBoundingClientRect();
+        const scrim = this.lightbox.querySelector('.bento-lightbox-scrim');
+        const closeBtn = this.lightbox.querySelector('.bento-lightbox-close');
+        const prevBtn = this.lightbox.querySelector('.bento-lightbox-prev');
+        const nextBtn = this.lightbox.querySelector('.bento-lightbox-next');
 
-        requestAnimationFrame(() => {
-            animatingOverlay.style.left = `${originalPos.left - rootRect.left}px`;
-            animatingOverlay.style.top = `${originalPos.top - rootRect.top}px`;
-            animatingOverlay.style.width = `${originalPos.width}px`;
-            animatingOverlay.style.height = `${originalPos.height}px`;
-            animatingOverlay.style.opacity = '0';
+        scrim.addEventListener('click', () => this.closeLightbox());
+        closeBtn.addEventListener('click', () => this.closeLightbox());
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.stepLightbox(-1);
+        });
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.stepLightbox(1);
         });
 
-        const cleanup = () => {
-            animatingOverlay.remove();
-            this.originalTilePosition = null;
-            if (refDiv) refDiv.remove();
-            parent.style.setProperty('--rot-y-delta', '0deg');
-            parent.style.setProperty('--rot-x-delta', '0deg');
-            el.style.visibility = '';
-            this.focusedEl = null;
-            this.root.removeAttribute('data-enlarging');
-            this.isOpening = false;
+        this.onKeyDown = (e) => {
+            if (!this.lightbox.classList.contains('is-open')) return;
+            if (e.key === 'Escape') this.closeLightbox();
+            if (e.key === 'ArrowLeft') this.stepLightbox(-1);
+            if (e.key === 'ArrowRight') this.stepLightbox(1);
         };
+        window.addEventListener('keydown', this.onKeyDown);
+    }
 
-        animatingOverlay.addEventListener('transitionend', cleanup, { once: true });
+    openLightbox(flatIdx) {
+        if (!this.lightbox || !this.allImagesFlat[flatIdx]) return;
+        this.currentLightboxIdx = flatIdx;
+        const itemData = this.allImagesFlat[flatIdx];
+        const img = this.lightbox.querySelector('.bento-lightbox-img');
+        img.src = itemData.src;
+        img.alt = `Moment ${itemData.index}`;
+        this.lightbox.classList.add('is-open');
+    }
+
+    stepLightbox(delta) {
+        const total = this.allImagesFlat.length;
+        if (!total) return;
+        this.currentLightboxIdx = (this.currentLightboxIdx + delta + total) % total;
+        this.openLightbox(this.currentLightboxIdx);
+    }
+
+    closeLightbox() {
+        if (!this.lightbox) return;
+        this.lightbox.classList.remove('is-open');
     }
 
     destroy() {
-        if (this.autoDriftRAF) cancelAnimationFrame(this.autoDriftRAF);
-        if (this.inertiaRAF) cancelAnimationFrame(this.inertiaRAF);
-        if (this.ro) this.ro.disconnect();
+        if (this.onKeyDown) {
+            window.removeEventListener('keydown', this.onKeyDown);
+        }
     }
 }
 

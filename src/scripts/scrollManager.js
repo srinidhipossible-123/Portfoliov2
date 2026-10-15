@@ -19,6 +19,10 @@ export class ScrollManager {
 
         // Element references
         this.elements = {
+            introGlass: document.getElementById('heroIntroGlass'),
+            cursiveText: document.getElementById('heroCursiveText'),
+            typingCursor: document.getElementById('heroTypingCursor'),
+            scrollNav: document.getElementById('heroScrollNav'),
             decode: document.getElementById('decode'),
             sanskrit: document.getElementById('sanskrit'),
             nameLeft: document.getElementById('nameLeft'),
@@ -28,12 +32,64 @@ export class ScrollManager {
             quote: document.getElementById('quote')
         };
 
+        this.ticking = false;
         this.init();
     }
 
     init() {
-        window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+        this.initIntroTyping();
+
+        if (this.elements.scrollNav) {
+            this.elements.scrollNav.addEventListener('click', () => {
+                window.scrollTo({
+                    top: Math.round(window.innerHeight * 0.85),
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!this.ticking) {
+                window.requestAnimationFrame(() => {
+                    this.handleScroll();
+                    this.ticking = false;
+                });
+                this.ticking = true;
+            }
+        }, { passive: true });
         this.handleScroll(); // Initial evaluation
+    }
+
+    initIntroTyping() {
+        const textEl = this.elements.cursiveText;
+        const cursorEl = this.elements.typingCursor;
+        const navEl = this.elements.scrollNav;
+        if (!textEl) return;
+
+        const message = 'Hi folks, welcome to my portfolio!';
+        textEl.textContent = '';
+        let idx = 0;
+
+        const typeNext = () => {
+            if (idx < message.length) {
+                const ch = message.charAt(idx);
+                textEl.textContent += ch;
+                idx++;
+                // Slight natural pause after comma
+                const delay = ch === ',' ? 240 : 62;
+                setTimeout(typeNext, delay);
+            } else {
+                // Typing finished: fade out cursor and reveal scroll-down cue
+                if (cursorEl) {
+                    setTimeout(() => cursorEl.classList.add('done'), 400);
+                }
+                if (navEl) {
+                    setTimeout(() => navEl.classList.add('visible'), 180);
+                }
+            }
+        };
+
+        setTimeout(typeNext, 350);
     }
 
     getHeroProgress() {
@@ -46,6 +102,11 @@ export class ScrollManager {
 
     handleScroll() {
         const p = this.getHeroProgress();
+
+        // 0. Dissolve initial blur glass overlay once user starts scrolling down
+        if (this.elements.introGlass) {
+            this.elements.introGlass.classList.toggle('scrolled-out', p > 0.015);
+        }
 
         // 1. Frame sequence animation progress
         if (this.engine) {

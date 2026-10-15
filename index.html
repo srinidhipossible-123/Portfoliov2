@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=Noto+Sans+Devanagari:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=Noto+Sans+Devanagari:wght@300;400&family=Great+Vibes&family=Alex+Brush&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/src/styles/main.css">
@@ -43,6 +43,27 @@
             <!-- Frame animation canvas -->
             <canvas id="animation-canvas"></canvas>
 
+            <!-- Initial Blur Glass Intro & Cursive Typing Overlay -->
+            <div class="hero-intro-glass" id="heroIntroGlass">
+                <div class="hero-intro-content">
+                    <div class="hero-typing-wrapper">
+                        <span class="hero-cursive-text" id="heroCursiveText"></span>
+                        <span class="hero-typing-cursor" id="heroTypingCursor"></span>
+                    </div>
+
+                    <button type="button" class="hero-scroll-nav" id="heroScrollNav" aria-label="Scroll down to view portfolio">
+                        <div class="scroll-mouse-shell">
+                            <span class="scroll-mouse-wheel"></span>
+                        </div>
+                        <span class="scroll-nav-label">Scroll down to view</span>
+                        <div class="scroll-chevrons">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
             <!-- All overlay sections -->
             <div class="overlay">
 
@@ -70,7 +91,7 @@
                     <h2>Srinidhi Joshi</h2>
                     <p>AI intern@Altimetrik<br>
                     Student@GMU<br>
-                    srinidhisjoshi78@gmail.com</p>
+                    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=srinidhisjoshi78@gmail.com&amp;su=Hello%20Srinidhi%20%7C%20Connecting%20via%20Portfolio&amp;body=Hi%20Srinidhi,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect.%0A%0ABest%20regards," target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">srinidhisjoshi78@gmail.com</a></p>
                 </div>
 
                 <!-- 6. Quote -->
@@ -99,7 +120,21 @@
 
         <!-- Central LaserFlow Framed Container -->
         <div class="about-laser-box">
-            <!-- Body: card + rotating badge + social -->
+            <!-- Rotating Circular Badge in Top-Right Corner of the outer box -->
+            <div class="rotating-badge-container">
+                <svg viewBox="0 0 200 200" class="rotating-badge-svg">
+                    <defs>
+                        <path id="circleTextPath" d="M 100, 100 m -68, 0 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0" />
+                    </defs>
+                    <text>
+                        <textPath href="#circleTextPath" startOffset="0%" textLength="427" lengthAdjust="spacing">
+                            CODE ✶ BUILD ✶ SHIP ✶
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+
+            <!-- Body: card + editorial statement + social -->
             <div class="about-body">
 
                 <!-- Glass card -->
@@ -112,18 +147,14 @@
                     <p>Always learning. Always shipping.</p>
                 </div>
 
-                <!-- Rotating Circular Badge -->
-                <div class="rotating-badge-container">
-                    <svg viewBox="0 0 200 200" class="rotating-badge-svg">
-                        <defs>
-                            <path id="circleTextPath" d="M 100, 100 m -68, 0 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0" />
-                        </defs>
-                        <text>
-                            <textPath href="#circleTextPath" startOffset="0%" textLength="427" lengthAdjust="spacing">
-                                REACT ✶ BITS ✶ COMPONENTS ✶
-                            </textPath>
-                        </text>
-                    </svg>
+                <!-- Editorial Statement in Free Space -->
+                <div class="about-statement-wrap">
+                    <p class="statement-lead">
+                        Hi, I’m <span class="txt-name">Srinidhi Joshi</span><span class="txt-dash">—</span> a <span class="txt-focus">Computer Science <span class="txt-nowrap">(Data Science)</span></span> student who enjoys turning ideas into <span class="txt-serif-accent">real-world solutions</span> through <span class="txt-tech">full-stack web development</span>, <span class="txt-tech">AI applications</span> powered by <span class="txt-pill-glow">RAG</span>, <span class="txt-pill-glow">LLMs</span> and <span class="txt-pill-glow">Agentic AI</span>, and <span class="txt-tech">Machine Learning</span>.
+                    </p>
+                    <p class="statement-sub">
+                        From building and deploying websites to exploring <span class="txt-serif-accent">intelligent systems</span>, I’m always curious to <span class="txt-action">learn, experiment and build</span> <span class="txt-serif-gold">something meaningful<span class="txt-spark">✦</span></span>
+                    </p>
                 </div>
 
                 <!-- Social sidebar with electric wire -->
@@ -135,12 +166,12 @@
                     <span class="connect-label">Connect</span>
 
                     <!-- LinkedIn -->
-                    <a href="#" class="social-link" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/srinidhi-s-joshi/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
                         <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.6c0-3.37-4-3.12-4 0v5.6h-3v-10h3v1.77c1.4-2.59 7-2.78 7 2.48v5.75z"/></svg>
                     </a>
 
                     <!-- GitHub -->
-                    <a href="#" class="social-link" aria-label="GitHub">
+                    <a href="https://github.com/srinidhipossible-123" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
                         <svg viewBox="0 0 24 24"><path d="M12 0c-6.63 0-12 5.37-12 12 0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58 4.76-1.59 8.2-6.09 8.2-11.39 0-6.63-5.37-12-12-12z"/></svg>
                     </a>
 
@@ -150,7 +181,7 @@
                     </a>
 
                     <!-- Email -->
-                    <a href="mailto:srinidhisjoshi78@gmail.com" class="social-link" aria-label="Email">
+                    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=srinidhisjoshi78@gmail.com&amp;su=Hello%20Srinidhi%20%7C%20Connecting%20via%20Portfolio&amp;body=Hi%20Srinidhi,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect.%0A%0ABest%20regards," target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Email">
                         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     </a>
                 </div>
@@ -159,7 +190,7 @@
 
             <!-- Download button -->
             <div class="about-footer">
-                <a href="#" class="download-btn">
+                <a href="/Srinidhi%20S%20Joshi.pdf" download="Srinidhi S Joshi.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">
                     <span class="icon-dl">
                         <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     </span>
@@ -206,7 +237,7 @@
         <div class="myjourney-container">
             <div class="myjourney-header">
                 <h2 class="myjourney-title">My Journey.</h2>
-                <p class="myjourney-tagline">Milestones, competitive breakthroughs, and engineering triumphs across 4 formative years.</p>
+                <p class="myjourney-tagline">My Achievement Timeline — academic excellence, competitive innovation, and applied AI engineering across 4 formative years.</p>
             </div>
             <div class="myjourney-interactive-row">
                 <div class="myjourney-wheel-col" id="myJourneyWheel"></div>
@@ -234,7 +265,7 @@
                 <p class="connect-desc">
                     Have an ambitious idea, research collaboration, or project in mind? My inbox is always open — let's build something exceptional together.
                 </p>
-                <a href="mailto:srinidhisjoshi78@gmail.com" class="connect-email-pill" id="footerEmailBtn" aria-label="Send email to Srinidhi">
+                <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=srinidhisjoshi78@gmail.com&amp;su=Hello%20Srinidhi%20%7C%20Connecting%20via%20Portfolio&amp;body=Hi%20Srinidhi,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect.%0A%0ABest%20regards," target="_blank" rel="noopener noreferrer" class="connect-email-pill" id="footerEmailBtn" aria-label="Send email to Srinidhi">
                     <div class="email-icon-box">
                         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     </div>
@@ -258,7 +289,7 @@
                 <span class="connect-social-title">Connect &amp; Follow</span>
                 <div class="connect-social-horizontal">
                     <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/srinidhi-s-joshi" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/srinidhi-s-joshi/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
                         <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.6c0-3.37-4-3.12-4 0v5.6h-3v-10h3v1.77c1.4-2.59 7-2.78 7 2.48v5.75z"/></svg>
                     </a>
 
@@ -273,7 +304,7 @@
                     </a>
 
                     <!-- Direct Mail -->
-                    <a href="mailto:srinidhisjoshi78@gmail.com" class="social-icon-btn" aria-label="Direct Mail" title="Direct Mail">
+                    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=srinidhisjoshi78@gmail.com&amp;su=Hello%20Srinidhi%20%7C%20Connecting%20via%20Portfolio&amp;body=Hi%20Srinidhi,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect.%0A%0ABest%20regards," target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Direct Mail" title="Direct Mail">
                         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     </a>
                 </div>

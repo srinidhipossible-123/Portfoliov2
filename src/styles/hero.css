@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Alex+Brush&display=swap');
+
 /* ===== Hero Scroll Section ===== */
 .hero-scroll-container {
     position: relative;
@@ -12,6 +14,7 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    background: #000;
 }
 
 /* ===== Canvas (frame animation) ===== */
@@ -22,6 +25,203 @@ canvas#animation-canvas {
     width: 100%;
     height: 100%;
     z-index: 1;
+}
+
+/* ===== Initial Blur Glass Intro & Cursive Typing ===== */
+.hero-intro-glass {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+        circle at center,
+        rgba(18, 15, 12, 0.35) 0%,
+        rgba(8, 8, 11, 0.65) 100%
+    );
+    backdrop-filter: blur(18px) saturate(115%);
+    -webkit-backdrop-filter: blur(18px) saturate(115%);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                -webkit-backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0.85s ease;
+}
+
+.hero-intro-glass.scrolled-out {
+    opacity: 0;
+    backdrop-filter: blur(0px) saturate(100%);
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.hero-intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+    max-width: 92vw;
+}
+
+.hero-typing-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(3.5rem, 7vw, 6rem);
+    padding: 12px 24px;
+}
+
+.hero-cursive-text {
+    font-family: 'Great Vibes', 'Alex Brush', 'Playfair Display', cursive;
+    font-size: clamp(2.4rem, 5.8vw, 5rem);
+    font-weight: 400;
+    color: #fff6eb;
+    letter-spacing: 1px;
+    line-height: 1.25;
+    text-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(255, 175, 80, 0.45),
+        0 0 65px rgba(240, 105, 20, 0.25);
+    user-select: none;
+}
+
+.hero-typing-cursor {
+    display: inline-block;
+    width: 2.5px;
+    height: clamp(2rem, 4.4vw, 3.8rem);
+    margin-left: 8px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #fff6eb 0%, #ff9933 100%);
+    box-shadow: 0 0 12px #ff9933, 0 0 22px rgba(255, 140, 20, 0.75);
+    animation: blinkCursiveCursor 0.8s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+.hero-typing-cursor.done {
+    opacity: 0;
+    animation: none;
+    transition: opacity 0.6s ease;
+}
+
+@keyframes blinkCursiveCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.15; }
+}
+
+/* Scroll Down Navigation Indicator */
+.hero-scroll-nav {
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%) translateY(18px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0.8s ease;
+}
+
+.hero-scroll-nav.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.hero-scroll-nav:hover {
+    transform: translateX(-50%) translateY(-3px);
+}
+
+.scroll-mouse-shell {
+    width: 22px;
+    height: 34px;
+    border: 1.5px solid rgba(255, 215, 160, 0.75);
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(255, 160, 50, 0.25);
+}
+
+.scroll-mouse-wheel {
+    width: 3px;
+    height: 7px;
+    background: #ffb866;
+    border-radius: 2px;
+    margin-top: 6px;
+    box-shadow: 0 0 6px #ff9933;
+    animation: scrollWheelPulse 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes scrollWheelPulse {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    70% {
+        transform: translateY(11px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+.scroll-nav-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: rgba(255, 235, 210, 0.9);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.scroll-chevrons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -4px;
+}
+
+.scroll-chevrons svg {
+    width: 15px;
+    height: 15px;
+    color: #ffaa44;
+    margin: -4px 0;
+    animation: chevronCascade 1.6s ease-in-out infinite;
+}
+
+.scroll-chevrons svg:nth-child(2) {
+    animation-delay: 0.22s;
+}
+
+@keyframes chevronCascade {
+    0%, 100% {
+        opacity: 0.25;
+        transform: translateY(-2px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(3px);
+    }
 }
 
 /* ===== Overlay (all text sections live here) ===== */
@@ -129,7 +329,7 @@ canvas#animation-canvas {
     position: absolute;
     right: 4%;
     bottom: 28%;
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Great Vibes', 'Alex Brush', 'Playfair Display', 'Brush Script MT', 'Segoe Script', serif;
     font-size: clamp(3.5rem, 8vw, 8rem);
     color: #efe0d0;
     white-space: nowrap;

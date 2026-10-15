@@ -6,7 +6,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: #000 url('/skills-bg.png') center bottom / cover no-repeat;
+    background: #000 url('/skills-bg.webp') center bottom / cover no-repeat;
     z-index: 10;
     overflow: hidden;
     display: flex;
@@ -148,19 +148,99 @@
     transition: text-shadow 0.3s ease;
 }
 
-/* Container ready for user's custom SVG logos */
+/* Container ready for logos */
 .hex-svg-slot {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
 }
 
+/* Crisp logo inside hexagon */
+.hex-logo-img {
+    width: 38px;
+    height: 38px;
+    max-width: 38px;
+    max-height: 38px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.85));
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.22s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.hex-key:hover .hex-logo-img {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 10px rgba(255, 140, 20, 0.55));
+}
+
+.hex-key.pressing .hex-logo-img {
+    transform: scale(0.95);
+}
+
+.hex-key.spark .hex-logo-img {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 14px rgba(255, 180, 50, 0.95));
+}
+
+/* Floating Skill Tooltip on hover */
+.hex-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(14, 14, 18, 0.96);
+    border: 1px solid rgba(255, 150, 30, 0.6);
+    color: #fff4d6;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    white-space: nowrap;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    z-index: 200;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.95), 0 0 16px rgba(255, 140, 20, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Tooltip downward pointer notch */
+.hex-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px 5px 0 5px;
+    border-style: solid;
+    border-color: rgba(255, 150, 30, 0.6) transparent transparent transparent;
+}
+
+.hex-key:hover .hex-tooltip,
+.hex-key:focus-visible .hex-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
 /* ==========================================================
    HOVER STATE
    ========================================================== */
+.hex-key:hover,
+.hex-key:focus-visible,
+.hex-key.pressing,
+.hex-key.spark {
+    z-index: 120 !important;
+}
+
 .hex-key:hover {
     transform: translateY(-2px);
 }
